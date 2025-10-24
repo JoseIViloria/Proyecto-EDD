@@ -9,25 +9,25 @@ package proyectoedd;
  * @author Gemelos
  */
 public class Grafo {
-    private int maxNodos;
+    private int maxVertices;
     private int vertices;
     private Lista ady[];
     
     public Grafo(int n){
-        this.maxNodos = n;
+        this.maxVertices = n;
         this.vertices = 0;
         ady = new Lista[n];
     }
 
     /**
-     * @return the maxNodos
+     * @return the maxVertices
      */
-    public int getMaxNodos() {
-        return maxNodos;
+    public int getMaxVertices() {
+        return maxVertices;
     }
 
-    public void setMaxNodos(int maxNodos) {
-        this.maxNodos = maxNodos;
+    public void setMaxVertices(int maxVertices) {
+        this.maxVertices = maxVertices;
     }
 
 
@@ -41,11 +41,28 @@ public class Grafo {
     }
     
     public Lista getLista(int x){
-        if (x>this.getMaxNodos()){
+        if (x>this.getMaxVertices()){
             return null;
         }
         else{
             return ady[x];
         }
+    }
+    
+    public void insertarVertice(String x){
+        if (this.getVertices()==this.getMaxVertices()){
+            return;
+        }else{
+            this.getLista(this.getVertices()).insertar(x);
+            this.setVertices(this.getVertices()+1);
+        }
+    }
+    
+    public void insertarArista(String x, int y){
+        if (!(y>=this.getMaxVertices())){
+            if(!(this.getLista(y).esVacio())){
+                this.getLista(y).insertar(x);
+            }
+        }  
     }
 }

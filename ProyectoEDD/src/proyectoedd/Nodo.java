@@ -8,6 +8,41 @@ package proyectoedd;
  *
  * @author Gemelos
  */
-public class Nodo {
-    
+public class Nodo<T> {
+    private T dato;
+    private Nodo pNext;
+
+    public Nodo(T dato) {
+        this.dato = dato;
+        this.pNext = null;
+    }
+
+    /**
+     * @return the dato
+     */
+    public T getDato() {
+        return dato;
+    }
+
+    /**
+     * @param dato the dato to set
+     */
+    public void setDato(T dato) {
+        this.dato = dato;
+    }
+
+    /**
+     * @return the pNext
+     */
+    public Nodo getpNext() {
+        return pNext;
+    }
+
+    /**
+     * @param pNext the pNext to set
+     */
+    public void setpNext(Nodo pNext) {
+        this.pNext = pNext;
+    }
+ 
 }

@@ -6,7 +6,7 @@ package proyectoedd;
 
 /**
  *
- * @author Gemelos
+ * @author Jose Viloria
  */
 public class Grafo {
     private int maxVertices;
@@ -49,10 +49,16 @@ public class Grafo {
         }
     }
     
+    public void setLista(int y, Lista l){
+        ady[y] = l;
+    }
+    
     public void insertarVertice(String x){
         if (this.getVertices()==this.getMaxVertices()){
             return;
         }else{
+            Lista aux = new Lista();
+            this.setLista(this.getVertices(), aux);
             this.getLista(this.getVertices()).insertar(x);
             this.setVertices(this.getVertices()+1);
         }
@@ -64,5 +70,20 @@ public class Grafo {
                 this.getLista(y).insertar(x);
             }
         }  
+    }
+    
+    public void elminarVertice(int y){
+        if(y>vertices || y<0){
+            return;
+        }
+        this.setLista(y, null);
+        this.setVertices(this.getVertices()-1);
+        if(y==this.getVertices()){
+            return;
+        }else{
+            for(;y<this.getMaxVertices();y++){
+                this.setLista(y, this.getLista(y+1));              
+            }
+        }
     }
 }

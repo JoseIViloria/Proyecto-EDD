@@ -5,10 +5,6 @@
 package proyectoedd;
 
 /**
- *
- * @author Gemelos
- */
-/**
  * Esta clase representa los nodos utilizados en la clase Lista.
  * Cada nodo contiene un dato de tipo T y una referencia al siguiente.
  * 

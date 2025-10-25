@@ -6,7 +6,7 @@ package proyectoedd;
 
 /**
  *
- * @author Gemelos
+ * @author Jose Viloria
  */
 public class Lista<T> {
     private Nodo pFirst;
@@ -45,7 +45,7 @@ public class Lista<T> {
         }
     }
     
-    public void eliminar(T x){
+    public void eliminarElemento(T x){
         Nodo aux = this.primero();
         if(aux.getDato().equals(x)){
             this.setPfirst(aux.getpNext());

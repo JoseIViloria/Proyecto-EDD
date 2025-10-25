@@ -6,7 +6,7 @@ package proyectoedd;
 
 /**
  *
- * @author Gemelos
+ * @author Jose Viloria
  */
 public class Interfaz extends javax.swing.JFrame {
     

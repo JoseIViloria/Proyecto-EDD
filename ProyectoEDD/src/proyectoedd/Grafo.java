@@ -60,7 +60,7 @@ public class Grafo {
     
     public void insertarArista(String x, int y){
         if (!(y>=this.getMaxVertices())){
-            if(!(this.getLista(y).esVacio())){
+            if(!(this.getLista(y).esVacio()) && (this.getLista(y).buscar(x)==null)){
                 this.getLista(y).insertar(x);
             }
         }  

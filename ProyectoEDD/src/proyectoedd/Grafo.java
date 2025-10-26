@@ -65,23 +65,24 @@ public class Grafo {
     }
     
     public void insertarArista(String x, int y){
-        if (!(y>=this.getMaxVertices())){
-            if(!(this.getLista(y).esVacio()) && (this.getLista(y).buscar(x)==null)){
+        if (!(y+1>=this.getMaxVertices())){
+            if(!(this.getLista(y).esVacio())){
                 this.getLista(y).insertar(x);
             }
         }  
     }
     
     public void elminarVertice(int y){
-        if(y>vertices || y<0){
+        if(y+1>vertices || y<0){
             return;
         }
-        this.setLista(y, null);
-        this.setVertices(this.getVertices()-1);
-        if(y==this.getVertices()){
+        this.setLista(y, null);    
+        if((y+1)==this.getVertices()){
+            this.setVertices(this.getVertices()-1);
             return;
         }else{
-            for(;y<this.getMaxVertices();y++){
+            this.setVertices(this.getVertices()-1);
+            for(;y<this.getVertices();y++){
                 this.setLista(y, this.getLista(y+1));              
             }
         }

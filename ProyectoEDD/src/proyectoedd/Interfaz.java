@@ -12,7 +12,9 @@ import java.io.BufferedReader;
  * @author Jose Viloria
  */
 public class Interfaz extends javax.swing.JFrame {
-    
+    Grafo graph = new Grafo(20);
+    String[] usuarios = new String[100];
+    String[][] relaciones = new String[100][2];
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Interfaz.class.getName());
 
     /**
@@ -31,26 +33,76 @@ public class Interfaz extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton1 = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1000, 600));
+
+        jButton1.setText("Construir");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 995, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(373, 373, 373)
+                .addComponent(jButton1)
+                .addContainerGap(543, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 532, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(131, 131, 131)
+                .addComponent(jButton1)
+                .addContainerGap(378, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.abrirarchivo(usuarios, relaciones);
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+            public String abrirarchivo(String[] entrada1, String[][] entrada2){
+            String aux = "";
+            String[] texto_relaciones = new String[2];
+            int n=0;
+            try{
+                JFileChooser elegir_archivo = new JFileChooser();
+                elegir_archivo.showOpenDialog(this);
+                File abrir = elegir_archivo.getSelectedFile();
+                if (abrir!=null){
+                    FileReader archivo=new FileReader(abrir);
+                    BufferedReader leer=new BufferedReader(archivo);
+                    while(!(aux=leer.readLine()).equals("relaciones")){
+                        if (!aux.equals("usuarios")){
+                        entrada1[n]=aux;
+                        n+=1;
+                        }
+                        }
+                    n=0;
+                    while((aux=leer.readLine())!=null){
+                        if (!aux.equals("usuarios")){
+                            texto_relaciones = aux.split(", ");
+                            entrada2[n][0] = texto_relaciones[0];
+                            entrada2[n][1] = texto_relaciones[1];
+                            n+=1;    
+                        }
+                    }
+                    leer.close();
+            }
+            }catch(Exception a){
+                return "Ocurrió un error al intentar leer el archivo";
+            }
+            return "Se ha leído el array";
+            }            
     public static void main(String args[]) {
 
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -72,41 +124,8 @@ public class Interfaz extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new Interfaz().setVisible(true));
     }
-            public String abrirarchivo(String[] entrada1, String[] entrada2){
-            String aux = "";
-            String texto_usuarios="";
-            String texto_relaciones="";
 
-            int n=0;
-            try{
-                JFileChooser elegir_archivo = new JFileChooser();
-                elegir_archivo.showOpenDialog(this);
-                File abrir = elegir_archivo.getSelectedFile();
-                if (abrir!=null){
-                    FileReader archivo=new FileReader(abrir);
-                    BufferedReader leer=new BufferedReader(archivo);
-                    while(!(aux=leer.readLine()).equals("relaciones")){
-                        if (!aux.equals("usuarios")){
-                        texto_usuarios+= aux + "\n";
-                        entrada1[n]=aux;
-                        n+=1;
-                        }
-                        }
-                    n=0;
-                    while((aux=leer.readLine())!=null){
-                        if (!aux.equals("usuarios")){
-                        texto_relaciones+= aux + "\n";
-                        entrada2[n]=aux;
-                        n+=1;    
-                        }
-                    }
-                    leer.close();
-            }
-            }catch(Exception a){
-                return "Ocurrió un error al intentar leer el archivo";
-            }
-            return "Se ha leído el array";
-            }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
 }

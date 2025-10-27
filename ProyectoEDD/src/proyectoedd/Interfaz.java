@@ -72,9 +72,12 @@ public class Interfaz extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new Interfaz().setVisible(true));
     }
-        public String abrirarchivo(){
+            public String abrirarchivo(String[] entrada1, String[] entrada2){
             String aux = "";
-            String texto="";
+            String texto_usuarios="";
+            String texto_relaciones="";
+
+            int n=0;
             try{
                 JFileChooser elegir_archivo = new JFileChooser();
                 elegir_archivo.showOpenDialog(this);
@@ -82,16 +85,28 @@ public class Interfaz extends javax.swing.JFrame {
                 if (abrir!=null){
                     FileReader archivo=new FileReader(abrir);
                     BufferedReader leer=new BufferedReader(archivo);
-                    while((aux=leer.readLine())!=null){
-                        texto+= aux + "\n";
+                    while(!(aux=leer.readLine()).equals("relaciones")){
+                        if (!aux.equals("usuarios")){
+                        texto_usuarios+= aux + "\n";
+                        entrada1[n]=aux;
+                        n+=1;
                         }
+                        }
+                    n=0;
+                    while((aux=leer.readLine())!=null){
+                        if (!aux.equals("usuarios")){
+                        texto_relaciones+= aux + "\n";
+                        entrada2[n]=aux;
+                        n+=1;    
+                        }
+                    }
                     leer.close();
             }
             }catch(Exception a){
                 return "Ocurrió un error al intentar leer el archivo";
             }
-            return texto;
-        }
+            return "Se ha leído el array";
+            }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }

@@ -5,24 +5,43 @@
 package proyectoedd;
 
 /**
- *
+ * Clase que representa listas simplemente enlazadas, para ser utilizadas en la Clase Grafo.
+ * Son las listas de ayacencia que contienen los vértices y sus conexiones.
+ * Su único atributo es un apuntador al primer Nodo de la Lista.
+ * 
  * @author Jose Viloria
+ * @see Grafo, Nodo
  */
 public class Lista<T> {
     private Nodo pFirst;
 
+    /**
+     * Constructor de la clase Lista.
+     */
     public Lista() {
         this.pFirst = null;
     }
     
+    /**
+     * Cambia el atributo pFirst de la Lista.
+     * @param x - Nodo que será insertado como pFirst
+     */
     public void setPfirst(Nodo x){
         this.pFirst = x;
     }
     
+    /**
+     * Regresa el atributo pFirst de la Lista.
+     * @return pFirst - primer Nodo de la Lista.
+     */
     public Nodo primero(){
         return this.pFirst;
     }
     
+    /**
+     * Regresa el último nodo en la Lista.
+     * @return Ultimo Nodo de la lista
+     */
     public Nodo last(){
         Nodo x = new Nodo(null);
         x = this.primero();
@@ -32,10 +51,18 @@ public class Lista<T> {
         return x;
     }
     
+    /**
+     * Regresa un booleano dependiendo si la lista está vaciá o no.
+     * @return True si la Lista está vacía, False si no.
+     */
     public boolean esVacio(){
         return this.primero() == null;
     }
     
+    /**
+     * Inserta un Nodo nuevo al final de la lista, con el dato que entra como parámetro.
+     * @param x - El atributo "dato" del nodo que se quiere insertar
+     */
     public void insertar(T x){
         Nodo aux = new Nodo(x);
         if (this.esVacio()){
@@ -45,6 +72,10 @@ public class Lista<T> {
         }
     }
     
+    /**
+     * Busca, usando el atributo del nodo, un nodo en la lista y lo elimina.
+     * @param x - el atributo "dato" del nodo que se quiere eliminar.
+     */
     public void eliminarElemento(T x){
         Nodo aux = this.primero();
         if(aux.getDato().equals(x)){
@@ -57,6 +88,11 @@ public class Lista<T> {
         }
     }
     
+    /**
+     * Busca un Nodo en la lista; regresa la dirección del Nodo
+     * @param x - El atributo "dato" del nodo que se busca.
+     * @return El nodo que se encontró
+     */
     public Nodo buscar(T x){
         Nodo aux = this.primero();
         while((!aux.getDato().equals(x))|| aux!=null){

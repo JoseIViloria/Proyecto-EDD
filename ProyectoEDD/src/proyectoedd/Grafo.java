@@ -5,14 +5,21 @@
 package proyectoedd;
 
 /**
- *
+ * Representa al grafo y cada uno de sus componentes.
+ * El grafo contiene dos atributos representando el número (entero) actual de vértices y el máximo.
+ * También contiene un array con cada una de las listas de adyacencia.
  * @author Jose Viloria
+ * @see Nodo, Lista
  */
 public class Grafo {
     private int maxVertices;
     private int vertices;
     private Lista ady[];
     
+    /**
+     * Constructor de la clase Grafo.
+     * @param n - Número máximo de vértices (usuarios)
+     */
     public Grafo(int n){
         this.maxVertices = n;
         this.vertices = 0;
@@ -20,26 +27,40 @@ public class Grafo {
     }
 
     /**
-     * @return the maxVertices
+     * @return el parámetro maxVertices
      */
     public int getMaxVertices() {
         return maxVertices;
     }
 
-    public void setMaxVertices(int maxVertices) {
-        this.maxVertices = maxVertices;
+    /**
+     * Cambia el parámetro "maxVertices" de la clase.
+     * @param x - el nuevo número máximo de vétices 
+     */
+    public void setMaxVertices(int x) {
+        this.maxVertices = x;
     }
 
-
+    /**
+     * @return vertices - el número actual de vertices presentes en el Grafo.
+     */
     public int getVertices() {
         return vertices;
     }
 
-
+    /**
+     * Cambia el atributo "vertices" del Grafo.
+     * @param vertices - el nuevo número de vértices en el grafo
+     */
     public void setVertices(int vertices) {
         this.vertices = vertices;
     }
     
+    /**
+     * Regresa la lista en la posición "x" del array ady
+     * @param x - La posición de la Lista dentro del array
+     * @return La dirección de la lista en la posición especificada
+     */
     public Lista getLista(int x){
         if (x>this.getMaxVertices()){
             return null;
@@ -49,10 +70,20 @@ public class Grafo {
         }
     }
     
+    /**
+     * Cambia una de las listas del array ady por otra que se especifique.
+     * @param y - Posición en el array de la lista que se quiere cambiar
+     * @param l - Lista que se quiere insertar en la posición y
+     */
     public void setLista(int y, Lista l){
         ady[y] = l;
     }
     
+    /**
+     * Crea una nueva Lista detro del array ady.
+     * Inserta el primer Nodo en esa Lista y actualiza el parámetro "vertices" del Grafo.
+     * @param x - Parámetro dato del "vértice" (Nodo) que se quiere insertar 
+     */
     public void insertarVertice(String x){
         if (this.getVertices()==this.getMaxVertices()){
             return;
@@ -64,6 +95,12 @@ public class Grafo {
         }
     }
     
+    /**
+     * Inserta un nuevo nodo a una de las listas del array ady.
+     * El nuevo Nodo no puede ser el primero de la lista, ya que este representa un vértice del Grafo
+     * @param x - "Dato" del Nodo que se insertará en la lista
+     * @param y - Posición de la lista en la que se quiere insertar el Nodo (dentro de ady)
+     */
     public void insertarArista(String x, int y){
         if (!(y+1>=this.getMaxVertices())){
             if(!(this.getLista(y).esVacio())){
@@ -72,6 +109,11 @@ public class Grafo {
         }  
     }
     
+    /**
+     * Elimina una de las listas en el array.
+     * No cambia el tamaño del array y listas posteriores a la borrada pasan a ocupar su lugar.
+     * @param y - Posición de una lista en el array
+     */
     public void elminarVertice(int y){
         if(y+1>vertices || y<0){
             return;

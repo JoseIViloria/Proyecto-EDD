@@ -9,7 +9,7 @@ import java.io.FileReader;
 import java.io.BufferedReader;
 /**
  *
- * @author Gemelos
+ * @author Jose Viloria
  */
 public class Interfaz extends javax.swing.JFrame {
     

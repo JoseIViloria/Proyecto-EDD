@@ -14,9 +14,11 @@ import org.graphstream.graph.implementations.*;
  * @author
  */
 public class Interfaz extends javax.swing.JFrame {
-    Grafo graph = new Grafo(20);
-    String[] usuarios = new String[100];
-    String[][] relaciones = new String[100][2];
+    Grafo graph = new Grafo(13);
+    String[] usuarios = new String[13];
+    int usuarios_len;
+    String[][] relaciones = new String[18][2];
+    int relaciones_len;
     Graph grf = new SingleGraph("Grafo");
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Interfaz.class.getName());
 
@@ -70,12 +72,12 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.abrirarchivo(usuarios, relaciones);
-        this.construirGrafo(graph, grf);
         this.InsertarGinfo(graph, usuarios, relaciones);
+        this.construirGrafo(graph, grf);
         grf.display();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-            public String abrirarchivo(String[] entrada1, String[][] entrada2){
+            public String abrirarchivo(String[] entrada1,String[][] entrada2){
             String aux = "";
             String[] texto_relaciones = new String[2];
             int n=0;
@@ -110,29 +112,34 @@ public class Interfaz extends javax.swing.JFrame {
             }
             
             public void InsertarGinfo(Grafo g, String[] user, String[][] rel){
-                for(int i=0; i<user.length-1; i++){
+                for(int i=0; i<user.length; i++){
                     g.insertarVertice(user[i]);
                 }
-               for(int i=0; i<rel.length-1; i++){
+               for(int i=0; i<rel.length; i++){
                    if(g.verticeExiste(rel[i][0]) && g.verticeExiste(rel[i][1])){
                        g.insertarArista(rel[i][1], g.posiciónVertice(rel[i][0]));
                    }
-               } 
+               }
             }
             
             public void construirGrafo(Grafo x, Graph display){
                 Nodo aux = new Nodo(null);
                 int i = 0;
-                while(i<x.getVertices()-1){
+                int j = 0;
+                while(i<x.getVertices()){
                     display.addNode(x.getLista(i).primero().getDato().toString());
                     i++;
                 }
                 i=0;
-                while(i<x.getVertices()-1){
+                while(i<x.getVertices()){
                     aux = x.getLista(i).primero();
                     while(aux!=null){
                         aux = aux.getpNext();
-                        display.addEdge("A", x.getLista(i).primero().getDato().toString(), aux.getDato().toString());
+                        if(aux == null){
+                            break;
+                        }
+                        display.addEdge(Integer.toString(i+j), x.getLista(i).primero().getDato().toString(), aux.getDato().toString());
+                        j++;
                     }
                    i++; 
                 }

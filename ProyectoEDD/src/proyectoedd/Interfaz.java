@@ -70,7 +70,8 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.abrirarchivo(usuarios, relaciones);
-        this.construirGrafo();
+        this.construirGrafo(graph, grf);
+        this.InsertarGinfo(graph, usuarios, relaciones);
         grf.display();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -87,10 +88,10 @@ public class Interfaz extends javax.swing.JFrame {
                     BufferedReader leer=new BufferedReader(archivo);
                     while(!(aux=leer.readLine()).equals("relaciones")){
                         if (!aux.equals("usuarios")){
-                        entrada1[n]=aux;
-                        n+=1;
+                            entrada1[n]=aux;
+                            n+=1;
                         }
-                        }
+                    }
                     n=0;
                     while((aux=leer.readLine())!=null){
                         if (!aux.equals("usuarios")){
@@ -106,22 +107,34 @@ public class Interfaz extends javax.swing.JFrame {
                 return "Ocurrió un error al intentar leer el archivo";
             }
             return "Se ha leído el array";
-            }            
+            }
             
-            public void construirGrafo(){
+            public void InsertarGinfo(Grafo g, String[] user, String[][] rel){
+                for(int i=0; i<user.length-1; i++){
+                    g.insertarVertice(user[i]);
+                }
+               for(int i=0; i<rel.length-1; i++){
+                   if(g.verticeExiste(rel[i][0]) && g.verticeExiste(rel[i][1])){
+                       g.insertarArista(rel[i][1], g.posiciónVertice(rel[i][0]));
+                   }
+               } 
+            }
+            
+            public void construirGrafo(Grafo x, Graph display){
                 Nodo aux = new Nodo(null);
                 int i = 0;
-                while(i<graph.getVertices()){
-                    grf.addNode(graph.getLista(i).primero().getDato().toString());
+                while(i<x.getVertices()-1){
+                    display.addNode(x.getLista(i).primero().getDato().toString());
                     i++;
                 }
                 i=0;
-                while(i<graph.getVertices()){
-                    aux = graph.getLista(i).primero();
+                while(i<x.getVertices()-1){
+                    aux = x.getLista(i).primero();
                     while(aux!=null){
                         aux = aux.getpNext();
-                        grf.addEdge("A", graph.getLista(i).primero().getDato().toString(), aux.getDato().toString());
+                        display.addEdge("A", x.getLista(i).primero().getDato().toString(), aux.getDato().toString());
                     }
+                   i++; 
                 }
             }
             

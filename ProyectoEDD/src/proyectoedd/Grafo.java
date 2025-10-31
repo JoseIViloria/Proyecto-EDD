@@ -129,4 +129,26 @@ public class Grafo {
             }
         }
     }
+    
+    public boolean verticeExiste(String x){
+        int i = 0;
+        while(i<this.getVertices()){
+            if(this.getLista(i).primero().getDato().equals(x)){
+                return true;
+            }
+            i++;
+        }
+        return false;
+    }
+    
+    public int posiciónVertice(String x){
+        int pos = 0;
+        while(pos<this.getVertices()){
+            if(this.getLista(pos).primero().getDato().equals(x)){
+                return pos;
+            }
+            pos++;
+        }
+        return 0;
+    }
 }

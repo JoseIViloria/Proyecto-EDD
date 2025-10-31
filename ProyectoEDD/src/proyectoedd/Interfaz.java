@@ -7,14 +7,17 @@ import javax.swing.JFileChooser;
 import java.io.File;
 import java.io.FileReader;
 import java.io.BufferedReader;
+import org.graphstream.graph.*;
+import org.graphstream.graph.implementations.*;
 /**
  *
- * @author Jose Viloria
+ * @author
  */
 public class Interfaz extends javax.swing.JFrame {
     Grafo graph = new Grafo(20);
     String[] usuarios = new String[100];
     String[][] relaciones = new String[100][2];
+    Graph grf = new SingleGraph("Grafo");
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Interfaz.class.getName());
 
     /**
@@ -67,7 +70,8 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.abrirarchivo(usuarios, relaciones);
-        
+        this.construirGrafo();
+        grf.display();
     }//GEN-LAST:event_jButton1ActionPerformed
 
             public String abrirarchivo(String[] entrada1, String[][] entrada2){
@@ -103,6 +107,24 @@ public class Interfaz extends javax.swing.JFrame {
             }
             return "Se ha leído el array";
             }            
+            
+            public void construirGrafo(){
+                Nodo aux = new Nodo(null);
+                int i = 0;
+                while(i<graph.getVertices()){
+                    grf.addNode(graph.getLista(i).primero().getDato().toString());
+                    i++;
+                }
+                i=0;
+                while(i<graph.getVertices()){
+                    aux = graph.getLista(i).primero();
+                    while(aux!=null){
+                        aux = aux.getpNext();
+                        grf.addEdge("A", graph.getLista(i).primero().getDato().toString(), aux.getDato().toString());
+                    }
+                }
+            }
+            
     public static void main(String args[]) {
 
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

@@ -14,11 +14,8 @@ import org.graphstream.graph.implementations.*;
  * @author
  */
 public class Interfaz extends javax.swing.JFrame {
-    Grafo graph = new Grafo(13);
-    String[] usuarios = new String[13];
-    int usuarios_len;
-    String[][] relaciones = new String[18][2];
-    int relaciones_len;
+    Grafo graph;
+    Ginfo info = new Ginfo();
     Graph grf = new SingleGraph("Grafo");
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Interfaz.class.getName());
 
@@ -71,35 +68,58 @@ public class Interfaz extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        this.abrirarchivo(usuarios, relaciones);
-        this.InsertarGinfo(graph, usuarios, relaciones);
+        this.abrirarchivo(info);
+        graph = new Grafo(info.usuarios.length);
+        this.InsertarGinfo(graph, info);
         this.construirGrafo(graph, grf);
         grf.display();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-            public String abrirarchivo(String[] entrada1,String[][] entrada2){
-            String aux = "";
+            public String abrirarchivo(Ginfo entrada){
+            String aux1 = "";    
+            String aux2 = "";
             String[] texto_relaciones = new String[2];
             int n=0;
+            int userSize = 0;
+            int relSize = 0;
             try{
                 JFileChooser elegir_archivo = new JFileChooser();
                 elegir_archivo.showOpenDialog(this);
+                File aaa = elegir_archivo.getSelectedFile();
+                if (aaa!=null){
+                    FileReader arc = new FileReader(aaa);
+                    BufferedReader read = new BufferedReader(arc);
+                    while(!(aux1=read.readLine()).equals("relaciones")){
+                        if (!aux1.equals("usuarios")){
+                            userSize += 1;
+                        }
+                    }
+                    while((aux1=read.readLine())!=null){
+                        if (!aux1.equals("usuarios")){
+                            relSize += 1;
+                        }
+                    }
+                }
+                
+                entrada.usuarios = new String[userSize];
+                entrada.relaciones = new String[relSize][2];
+              
                 File abrir = elegir_archivo.getSelectedFile();
                 if (abrir!=null){
                     FileReader archivo=new FileReader(abrir);
                     BufferedReader leer=new BufferedReader(archivo);
-                    while(!(aux=leer.readLine()).equals("relaciones")){
-                        if (!aux.equals("usuarios")){
-                            entrada1[n]=aux;
+                    while(!(aux2=leer.readLine()).equals("relaciones")){
+                        if (!aux2.equals("usuarios")){
+                            entrada.usuarios[n]=aux2;
                             n+=1;
                         }
                     }
                     n=0;
-                    while((aux=leer.readLine())!=null){
-                        if (!aux.equals("usuarios")){
-                            texto_relaciones = aux.split(", ");
-                            entrada2[n][0] = texto_relaciones[0];
-                            entrada2[n][1] = texto_relaciones[1];
+                    while((aux2=leer.readLine())!=null){
+                        if (!aux2.equals("usuarios")){
+                            texto_relaciones = aux2.split(", ");
+                            entrada.relaciones[n][0] = texto_relaciones[0];
+                            entrada.relaciones[n][1] = texto_relaciones[1];
                             n+=1;    
                         }
                     }
@@ -111,13 +131,13 @@ public class Interfaz extends javax.swing.JFrame {
             return "Se ha leído el array";
             }
             
-            public void InsertarGinfo(Grafo g, String[] user, String[][] rel){
-                for(int i=0; i<user.length; i++){
-                    g.insertarVertice(user[i]);
+            public void InsertarGinfo(Grafo g, Ginfo x){
+                for(int i=0; i<x.usuarios.length; i++){
+                    g.insertarVertice(x.usuarios[i]);
                 }
-               for(int i=0; i<rel.length; i++){
-                   if(g.verticeExiste(rel[i][0]) && g.verticeExiste(rel[i][1])){
-                       g.insertarArista(rel[i][1], g.posiciónVertice(rel[i][0]));
+               for(int i=0; i<x.relaciones.length; i++){
+                   if(g.verticeExiste(x.relaciones[i][0]) && g.verticeExiste(x.relaciones[i][1])){
+                       g.insertarArista(x.relaciones[i][1], g.posiciónVertice(x.relaciones[i][0]));
                    }
                }
             }
@@ -128,6 +148,7 @@ public class Interfaz extends javax.swing.JFrame {
                 int j = 0;
                 while(i<x.getVertices()){
                     display.addNode(x.getLista(i).primero().getDato().toString());
+                    display.getNode(x.getLista(i).primero().getDato().toString()).setAttribute("ui.label", x.getLista(i).primero().getDato().toString());
                     i++;
                 }
                 i=0;
@@ -138,7 +159,7 @@ public class Interfaz extends javax.swing.JFrame {
                         if(aux == null){
                             break;
                         }
-                        display.addEdge(Integer.toString(i+j), x.getLista(i).primero().getDato().toString(), aux.getDato().toString());
+                        display.addEdge(Integer.toString(i+j), x.getLista(i).primero().getDato().toString(), aux.getDato().toString(), true);
                         j++;
                     }
                    i++; 

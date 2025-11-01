@@ -6,7 +6,7 @@ package proyectoedd;
 
 /**
  *
- * @author Gemelos
+ * @author 
  */
 public class ProyectoEDD {
 

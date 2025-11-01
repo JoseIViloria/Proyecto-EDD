@@ -130,6 +130,11 @@ public class Grafo {
         }
     }
     
+    /**
+     * Comprueba si el vértice con la información X se encuentra en la lista de adyacencia.
+     * @param x - El dato contenido en uno de los vértices.
+     * @return boolean True si el vértice existe, False en el caso  contrario
+     */
     public boolean verticeExiste(String x){
         int i = 0;
         while(i<this.getVertices()){
@@ -141,6 +146,11 @@ public class Grafo {
         return false;
     }
     
+    /**
+     * Regresa la posición dentro de el array ady, de un vértice que se busque.
+     * @param x - El dato contenido dentro de uno de los vertices
+     * @return la posición de el vertice buscado dentro del array ady.
+     */
     public int posiciónVertice(String x){
         int pos = 0;
         while(pos<this.getVertices()){

@@ -7,6 +7,7 @@ import javax.swing.JFileChooser;
 import java.io.File;
 import java.io.FileReader;
 import java.io.BufferedReader;
+import javax.swing.JOptionPane;
 import org.graphstream.graph.*;
 import org.graphstream.graph.implementations.*;
 /**
@@ -39,36 +40,21 @@ public class Interfaz extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1000, 600));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setText("Construir");
+        jButton1.setText("Cargar Archivo");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(373, 373, 373)
-                .addComponent(jButton1)
-                .addContainerGap(543, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(131, 131, 131)
-                .addComponent(jButton1)
-                .addContainerGap(378, Short.MAX_VALUE))
-        );
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 120, 60));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        this.abrirarchivo(info);
+        JOptionPane.showMessageDialog(rootPane, this.abrirarchivo(info));
         graph = new Grafo(info.usuarios.length);
         this.InsertarGinfo(graph, info);
         this.construirGrafo(graph, grf);
@@ -128,7 +114,7 @@ public class Interfaz extends javax.swing.JFrame {
             }catch(Exception a){
                 return "Ocurrió un error al intentar leer el archivo";
             }
-            return "Se ha leído el array";
+            return "Se ha leído el archivo exitosamente";
             }
             
             public void InsertarGinfo(Grafo g, Ginfo x){
@@ -149,6 +135,7 @@ public class Interfaz extends javax.swing.JFrame {
                 while(i<x.getVertices()){
                     display.addNode(x.getLista(i).primero().getDato().toString());
                     display.getNode(x.getLista(i).primero().getDato().toString()).setAttribute("ui.label", x.getLista(i).primero().getDato().toString());
+                    display.getNode(x.getLista(i).primero().getDato().toString()).setAttribute("ui.style", "fill-color: cyan;size: 70px;");
                     i++;
                 }
                 i=0;
@@ -159,11 +146,14 @@ public class Interfaz extends javax.swing.JFrame {
                         if(aux == null){
                             break;
                         }
-                        display.addEdge(Integer.toString(i+j), x.getLista(i).primero().getDato().toString(), aux.getDato().toString(), true);
+                        display.addEdge(Integer.toString(i)+Integer.toString(j), x.getLista(i).primero().getDato().toString(), aux.getDato().toString(), true);
+                        display.getEdge(Integer.toString(i)+Integer.toString(j)).setAttribute("ui.style", "fill-color: black;");
                         j++;
                     }
-                   i++; 
+                   i++;
+                   j=0;
                 }
+                display.setAttribute("ui.antialias");
             }
             
     public static void main(String args[]) {

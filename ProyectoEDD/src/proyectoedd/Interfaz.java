@@ -203,6 +203,35 @@ public class Interfaz extends javax.swing.JFrame {
                 información.relaciones = relaciones2;
             }
             
+            public void eliminar_relación(String usuario_eliminar, String relación_eliminar, Ginfo información){
+                int x = información.relaciones.length-1;
+                int i = 0;
+                String[][] relaciones2 = new String[x][2];
+                while (i<información.relaciones.length){
+                    if ((información.relaciones[i][0].equals(usuario_eliminar))&&(información.relaciones[i][1].equals(relación_eliminar))){
+                        información.relaciones[i][0]=null;
+                        información.relaciones[i][1]=null;
+                        if ((i+1)==información.usuarios.length){
+                            for (int j = 0; j < x; j++) {
+                                relaciones2[j][0]=información.relaciones[j][0];
+                                relaciones2[j][1]=información.relaciones[j][1];
+                            }
+                        } else {
+                            for (; i < x; i++) {
+                                información.relaciones[i][0]=información.relaciones[i+1][0];
+                                información.relaciones[i][1]=información.relaciones[i+1][0];
+                            }
+                            for (int j = 0; j < x; j++) {
+                                relaciones2[j][0]=información.relaciones[j][0];
+                                relaciones2[j][1]=información.relaciones[j][1];
+                            }
+                        }
+                        información.relaciones = relaciones2;
+                    }
+                    i++;
+                }
+            }
+            
     public static void main(String args[]) {
 
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

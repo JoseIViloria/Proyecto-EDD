@@ -156,6 +156,53 @@ public class Interfaz extends javax.swing.JFrame {
                 display.setAttribute("ui.antialias");
             }
             
+            public void eliminar_usuario(String username, Ginfo información){
+                int x = información.usuarios.length-1;
+                int i = 0;
+                String[] usuarios2 = new String[x];
+                while (i < información.usuarios.length) {
+                    if (información.usuarios[i].equals(username)){
+                        información.usuarios[i]=null;
+                        if ((i+1==información.usuarios.length)){
+                            for (int j = 0; j < x; j++) {
+                                usuarios2[j]=información.usuarios[j];
+                            }
+                        }else{
+                            for (; i < x; i++) {
+                                información.usuarios[i]=información.usuarios[i+1];
+                            }
+                            for (int j = 0; j < x; j++) {
+                                usuarios2[j]=información.usuarios[j];
+                            }
+                        }
+                        información.usuarios=usuarios2;
+                    }
+                    i++;
+                }
+            }
+            
+            public void añadir_usuario(String nuevo_usuario, Ginfo información){
+                int x = información.usuarios.length+1;
+                String[] usuarios2 = new String[x];
+                for (int i = 0; i < (x-1); i++) {
+                    usuarios2[i]=información.usuarios[i];
+                }
+                usuarios2[x]= nuevo_usuario;
+                información.usuarios=usuarios2;
+            }
+            
+            public void añadir_relación(String usuario, String nueva_relación, Ginfo información){
+                int x = información.relaciones.length+1;
+                String[][] relaciones2 = new String[x][2];
+                for (int i = 0; i < (x-1); i++) {
+                    relaciones2[i][0] = información.relaciones[i][0];
+                    relaciones2[i][1] = información.relaciones[i][1];
+                }
+                relaciones2[x][0] = usuario;
+                relaciones2[x][1] = nueva_relación;
+                información.relaciones = relaciones2;
+            }
+            
     public static void main(String args[]) {
 
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

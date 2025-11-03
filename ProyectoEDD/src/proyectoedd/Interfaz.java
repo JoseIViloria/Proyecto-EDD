@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package proyectoedd;
+import java.awt.BorderLayout;
+import java.awt.Component;
 import javax.swing.JFileChooser;
 import java.io.File;
 import java.io.FileReader;
@@ -10,6 +12,9 @@ import java.io.BufferedReader;
 import javax.swing.JOptionPane;
 import org.graphstream.graph.*;
 import org.graphstream.graph.implementations.*;
+import org.graphstream.ui.swing_viewer.*;
+import org.graphstream.ui.view.View;
+import org.graphstream.ui.view.Viewer;
 /**
  *
  * @author
@@ -37,6 +42,7 @@ public class Interfaz extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
+        GraphPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1000, 600));
@@ -50,6 +56,9 @@ public class Interfaz extends javax.swing.JFrame {
         });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 120, 60));
 
+        GraphPanel.setLayout(new java.awt.BorderLayout());
+        getContentPane().add(GraphPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, 590, 470));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -58,7 +67,7 @@ public class Interfaz extends javax.swing.JFrame {
         graph = new Grafo(info.usuarios.length);
         this.InsertarGinfo(graph, info);
         this.construirGrafo(graph, grf);
-        grf.display();
+        this.actuaizar_Display();
     }//GEN-LAST:event_jButton1ActionPerformed
 
             public String abrirarchivo(Ginfo entrada){
@@ -156,6 +165,14 @@ public class Interfaz extends javax.swing.JFrame {
                 display.setAttribute("ui.antialias");
             }
             
+            public void actuaizar_Display(){
+                SwingViewer viewer = new SwingViewer(grf, Viewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD);
+                viewer.enableAutoLayout();
+                View view = viewer.addDefaultView(true);
+                view.openInAFrame(false);
+                GraphPanel.add((Component) view, BorderLayout.CENTER);
+            }
+            
     public static void main(String args[]) {
 
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -179,6 +196,7 @@ public class Interfaz extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel GraphPanel;
     private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
 }

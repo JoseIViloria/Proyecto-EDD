@@ -67,10 +67,12 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         JOptionPane.showMessageDialog(rootPane, this.abrirarchivo(info));
-        graph = new Grafo(info.usuarios.length);
-        this.InsertarGinfo(graph, info);
-        this.construirGrafo(graph, grf);
-        grf.display();
+        if (archivo_guardado!=null){
+            graph = new Grafo(info.usuarios.length);
+            this.InsertarGinfo(graph, info);
+            this.construirGrafo(graph, grf);
+            grf.display();
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -88,6 +90,9 @@ public class Interfaz extends javax.swing.JFrame {
                 JFileChooser elegir_archivo = new JFileChooser();
                 elegir_archivo.showOpenDialog(this);
                 File archivo_elegido = elegir_archivo.getSelectedFile();
+                if (archivo_elegido==null){
+                    return "Ningún archivo fue elegido";
+                }else{
                 archivo_guardado = elegir_archivo.getSelectedFile();
                 if (archivo_elegido!=null){
                     FileReader arc = new FileReader(archivo_elegido);
@@ -127,6 +132,7 @@ public class Interfaz extends javax.swing.JFrame {
                         }
                     }
                     leer.close();
+                }
             }
             }catch(Exception a){
                 return "Ocurrió un error al intentar leer el archivo";
@@ -139,7 +145,7 @@ public class Interfaz extends javax.swing.JFrame {
                     if (archivo_guardado!=null){
                         FileWriter escribir = new FileWriter(archivo_guardado);
                         BufferedWriter write = new BufferedWriter(escribir);
-                        write.write("users");
+                        write.write("usuarios");
                         write.newLine();
                         for (int i = 0; i < Entrada.usuarios.length; i++) {
                             write.write(Entrada.usuarios[i]);

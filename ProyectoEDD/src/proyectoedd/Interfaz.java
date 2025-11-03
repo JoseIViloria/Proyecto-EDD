@@ -7,6 +7,8 @@ import javax.swing.JFileChooser;
 import java.io.File;
 import java.io.FileReader;
 import java.io.BufferedReader;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
 import javax.swing.JOptionPane;
 import org.graphstream.graph.*;
 import org.graphstream.graph.implementations.*;
@@ -18,6 +20,7 @@ public class Interfaz extends javax.swing.JFrame {
     Grafo graph;
     Ginfo info = new Ginfo();
     Graph grf = new SingleGraph("Grafo");
+    File archivo_guardado;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Interfaz.class.getName());
 
     /**
@@ -37,6 +40,7 @@ public class Interfaz extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1000, 600));
@@ -50,6 +54,14 @@ public class Interfaz extends javax.swing.JFrame {
         });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 120, 60));
 
+        jButton2.setText("Actualizar Archivo");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, 140, 60));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -61,6 +73,10 @@ public class Interfaz extends javax.swing.JFrame {
         grf.display();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.ActualizarArchivo(info);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
             public String abrirarchivo(Ginfo entrada){
             String aux1 = "";    
             String aux2 = "";
@@ -71,9 +87,10 @@ public class Interfaz extends javax.swing.JFrame {
             try{
                 JFileChooser elegir_archivo = new JFileChooser();
                 elegir_archivo.showOpenDialog(this);
-                File aaa = elegir_archivo.getSelectedFile();
-                if (aaa!=null){
-                    FileReader arc = new FileReader(aaa);
+                File archivo_elegido = elegir_archivo.getSelectedFile();
+                archivo_guardado = elegir_archivo.getSelectedFile();
+                if (archivo_elegido!=null){
+                    FileReader arc = new FileReader(archivo_elegido);
                     BufferedReader read = new BufferedReader(arc);
                     while(!(aux1=read.readLine()).equals("relaciones")){
                         if (!aux1.equals("usuarios")){
@@ -115,6 +132,31 @@ public class Interfaz extends javax.swing.JFrame {
                 return "Ocurrió un error al intentar leer el archivo";
             }
             return "Se ha leído el archivo exitosamente";
+            }
+            
+            public String ActualizarArchivo(Ginfo Entrada){
+                try{
+                    if (archivo_guardado!=null){
+                        FileWriter escribir = new FileWriter(archivo_guardado);
+                        BufferedWriter write = new BufferedWriter(escribir);
+                        write.write("users");
+                        write.newLine();
+                        for (int i = 0; i < Entrada.usuarios.length; i++) {
+                            write.write(Entrada.usuarios[i]);
+                            write.newLine();
+                            }
+                        write.write("relaciones");
+                        write.newLine();
+                        for (int j = 0; j < Entrada.relaciones.length; j++) {
+                            write.write(Entrada.relaciones[j][0]+", "+Entrada.relaciones[j][1]);
+                            write.newLine();
+                        }
+                        write.close();
+                    }
+                }catch(Exception a){
+                    return "Ocurrió un error al intentar leer el archivo";
+                }
+                return "Se ha modificado el archivo exitosamente";
             }
             
             public void InsertarGinfo(Grafo g, Ginfo x){
@@ -256,5 +298,6 @@ public class Interfaz extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     // End of variables declaration//GEN-END:variables
 }

@@ -93,8 +93,18 @@ public class Interfaz extends javax.swing.JFrame {
         });
         getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, -1, -1));
 
+        Box1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Box1ActionPerformed(evt);
+            }
+        });
         getContentPane().add(Box1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 340, 110, -1));
 
+        Box2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Box2ActionPerformed(evt);
+            }
+        });
         getContentPane().add(Box2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 120, -1));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -155,6 +165,11 @@ public class Interfaz extends javax.swing.JFrame {
         getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 240, -1, -1));
 
         jButton6.setText("Borrar Relación");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 340, 110, -1));
 
         GraphPanel.setLayout(new java.awt.BorderLayout());
@@ -189,15 +204,17 @@ public class Interfaz extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         try{
             if (archivo_guardado!=null){
-                this.añadir_usuario(jTextField1.getText(), info);
-                graph = new Grafo(info.usuarios.length);
-                grf.clear();
-                this.InsertarGinfo(graph, info);
-                this.construirGrafo(graph, grf);
-                Box2.addItem(jTextField1.getText());
-                Box3.addItem(jTextField1.getText());
-                Box4.addItem(jTextField1.getText());
-                Box5.addItem(jTextField1.getText());
+                if ((!jTextField1.getText().equals(""))&&(!graph.verticeExiste(jTextField1.getText()))){
+                    this.añadir_usuario(jTextField1.getText(), info);
+                    graph = new Grafo(info.usuarios.length);
+                    grf.clear();
+                    this.InsertarGinfo(graph, info);
+                    this.construirGrafo(graph, grf);
+                    Box2.addItem(jTextField1.getText());
+                    Box3.addItem(jTextField1.getText());
+                    Box4.addItem(jTextField1.getText());
+                    Box5.addItem(jTextField1.getText());
+                }
             }
         }catch(Exception a){
         
@@ -227,8 +244,57 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        
+        try{
+            String usuario_seleccionado = (String)Box3.getSelectedItem();
+            Box2.removeItem(Box3.getSelectedItem());
+            Box4.removeItem(Box3.getSelectedItem());
+            Box5.removeItem(Box3.getSelectedItem());
+            Box3.removeItem(Box3.getSelectedItem());
+            this.eliminar_usuario(usuario_seleccionado, info);
+            //Revisar con un breakpoint y actualizar las cajas
+            graph = new Grafo(info.usuarios.length);
+            grf.clear();
+            this.InsertarGinfo(graph, info);
+            this.construirGrafo(graph, grf);
+        }catch(Exception a){
+            
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void Box1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Box1ActionPerformed
+        
+    }//GEN-LAST:event_Box1ActionPerformed
+
+    private void Box2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Box2ActionPerformed
+        try{
+            Box1.removeAllItems();
+            for (int i = 0; i < info.relaciones.length; i++) {
+                if(Box2.getSelectedItem().equals(info.relaciones[i][0])){
+                    Box1.addItem(info.relaciones[i][1]);
+                }
+            }
+        }catch(Exception a){
+            
+        }
+    }//GEN-LAST:event_Box2ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        try{
+            for (int i = 0; i < info.relaciones.length; i++) {
+                if((info.relaciones[i][0].equals(Box2.getSelectedItem()))&&(info.relaciones[i][1].equals(Box1.getSelectedItem()))){
+                   String user = info.relaciones[i][0];
+                   String rel = info.relaciones[i][1];
+                   this.eliminar_relación(user, rel, info);
+                   graph = new Grafo(info.usuarios.length);
+                   grf.clear();
+                   this.InsertarGinfo(graph, info);
+                   this.construirGrafo(graph, grf);
+                }   
+            }
+        }catch(Exception a){
+            
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
 
             public String abrirarchivo(Ginfo entrada){
             String aux1 = "";    
@@ -419,7 +485,7 @@ public class Interfaz extends javax.swing.JFrame {
                         } else {
                             for (; i < x; i++) {
                                 información.relaciones[i][0]=información.relaciones[i+1][0];
-                                información.relaciones[i][1]=información.relaciones[i+1][0];
+                                información.relaciones[i][1]=información.relaciones[i+1][1];
                             }
                             for (int j = 0; j < x; j++) {
                                 relaciones2[j][0]=información.relaciones[j][0];

@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package proyectoedd;
+import java.awt.BorderLayout;
+import java.awt.Component;
 import javax.swing.JFileChooser;
 import java.io.File;
 import java.io.FileReader;
@@ -12,6 +14,10 @@ import java.io.BufferedWriter;
 import javax.swing.JOptionPane;
 import org.graphstream.graph.*;
 import org.graphstream.graph.implementations.*;
+import org.graphstream.ui.graphicGraph.GraphicGraph;
+import org.graphstream.ui.swing_viewer.*;
+import org.graphstream.ui.view.View;
+import org.graphstream.ui.view.Viewer;
 /**
  *
  * @author
@@ -57,9 +63,9 @@ public class Interfaz extends javax.swing.JFrame {
         Box5 = new javax.swing.JComboBox<>();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        GraphPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1000, 600));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton1.setText("Cargar Archivo");
@@ -115,6 +121,11 @@ public class Interfaz extends javax.swing.JFrame {
         getContentPane().add(Box3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 120, -1));
 
         jButton4.setText("Borrar Usuario");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 290, 110, -1));
 
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -146,16 +157,20 @@ public class Interfaz extends javax.swing.JFrame {
         jButton6.setText("Borrar Relación");
         getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 340, 110, -1));
 
+        GraphPanel.setLayout(new java.awt.BorderLayout());
+        getContentPane().add(GraphPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 20, 310, 350));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         JOptionPane.showMessageDialog(rootPane, this.abrirarchivo(info));
+
         if (archivo_guardado!=null){
             graph = new Grafo(info.usuarios.length);
             this.InsertarGinfo(graph, info);
             this.construirGrafo(graph, grf);
-            grf.display();
+            this.Cargar_Display();
             for (int i = 0; i < info.usuarios.length; i++) {
                 Box2.addItem(info.usuarios[i]);
                 Box3.addItem(info.usuarios[i]);
@@ -163,6 +178,8 @@ public class Interfaz extends javax.swing.JFrame {
                 Box5.addItem(info.usuarios[i]);
             }
         }
+
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -174,8 +191,9 @@ public class Interfaz extends javax.swing.JFrame {
             if (archivo_guardado!=null){
                 this.añadir_usuario(jTextField1.getText(), info);
                 graph = new Grafo(info.usuarios.length);
+                grf.clear();
+                this.InsertarGinfo(graph, info);
                 this.construirGrafo(graph, grf);
-                grf.display();
                 Box2.addItem(jTextField1.getText());
                 Box3.addItem(jTextField1.getText());
                 Box4.addItem(jTextField1.getText());
@@ -200,12 +218,17 @@ public class Interfaz extends javax.swing.JFrame {
             String relación_seleccionada = (String)Box5.getSelectedItem();
             this.añadir_relación(usuario_seleccionado, relación_seleccionada, info);
             graph = new Grafo(info.usuarios.length);
-                this.construirGrafo(graph, grf);
-                grf.display();
+            grf.clear();
+            this.InsertarGinfo(graph, info);
+            this.construirGrafo(graph, grf);
         }catch(Exception a){
             
         }
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        
+    }//GEN-LAST:event_jButton4ActionPerformed
 
             public String abrirarchivo(Ginfo entrada){
             String aux1 = "";    
@@ -311,7 +334,7 @@ public class Interfaz extends javax.swing.JFrame {
                 while(i<x.getVertices()){
                     display.addNode(x.getLista(i).primero().getDato().toString());
                     display.getNode(x.getLista(i).primero().getDato().toString()).setAttribute("ui.label", x.getLista(i).primero().getDato().toString());
-                    display.getNode(x.getLista(i).primero().getDato().toString()).setAttribute("ui.style", "fill-color: cyan;size: 70px;");
+                    display.getNode(x.getLista(i).primero().getDato().toString()).setAttribute("ui.style", "fill-color: cyan;size: 50px;");
                     i++;
                 }
                 i=0;
@@ -332,6 +355,7 @@ public class Interfaz extends javax.swing.JFrame {
                 display.setAttribute("ui.antialias");
             }
             
+
             public void eliminar_usuario(String username, Ginfo información){
                 int x = información.usuarios.length-1;
                 int i = 0;
@@ -407,6 +431,14 @@ public class Interfaz extends javax.swing.JFrame {
                     i++;
                 }
             }
+
+            public void Cargar_Display(){
+                SwingViewer viewer = new SwingViewer(grf, Viewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD);
+                viewer.enableAutoLayout();
+                View view = viewer.addDefaultView(true);
+                view.openInAFrame(false);
+                GraphPanel.add((Component) view, BorderLayout.CENTER);
+            }
             
     public static void main(String args[]) {
 
@@ -436,6 +468,7 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> Box3;
     private javax.swing.JComboBox<String> Box4;
     private javax.swing.JComboBox<String> Box5;
+    private javax.swing.JPanel GraphPanel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;

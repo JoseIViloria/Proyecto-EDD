@@ -428,6 +428,7 @@ public class Interfaz extends javax.swing.JFrame {
                 String[] usuarios2 = new String[x];
                 while (i < información.usuarios.length) {
                     if (información.usuarios[i].equals(username)){
+                        this.BORRAR_RELACIONES(username, información);
                         información.usuarios[i]=null;
                         if ((i+1==información.usuarios.length)){
                             for (int j = 0; j < x; j++) {
@@ -496,6 +497,30 @@ public class Interfaz extends javax.swing.JFrame {
                     }
                     i++;
                 }
+            }
+            
+            public void BORRAR_RELACIONES(String usuario, Ginfo información){
+                int x = 0;
+                int j = 0;
+                String[][] relaciones2;
+                for (int i = 0; i < información.relaciones.length ; i++) {
+                    if ((información.relaciones[i][0].equals(usuario))||(información.relaciones[i][1].equals(usuario))){
+                        información.relaciones[i][0]=null;
+                        información.relaciones[i][1]=null;
+                        x+=1;
+                    }
+                }
+                relaciones2 = new String[información.relaciones.length-x][2];
+                while (j < relaciones2.length){
+                    for (int k = 0; k < información.relaciones.length; k++) {
+                        if(información.relaciones[k][0]!=null){
+                            relaciones2[j][0]=información.relaciones[k][0];
+                            relaciones2[j][1]=información.relaciones[k][1];
+                            j+=1;
+                        }
+                    }
+                }
+                información.relaciones=relaciones2;
             }
 
             public void Cargar_Display(){

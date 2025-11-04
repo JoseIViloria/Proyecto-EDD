@@ -63,11 +63,11 @@ public class Interfaz extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        JOptionPane.showMessageDialog(rootPane, this.abrirarchivo(info));
-        graph = new Grafo(info.usuarios.length);
-        this.InsertarGinfo(graph, info);
-        this.construirGrafo(graph, grf);
-        this.actuaizar_Display();
+       JOptionPane.showMessageDialog(rootPane, this.abrirarchivo(info));
+       graph = new Grafo(info.usuarios.length);
+       this.InsertarGinfo(graph, info);
+       this.construirGrafo(graph, grf);
+       this.actuaizar_Display();
     }//GEN-LAST:event_jButton1ActionPerformed
 
             public String abrirarchivo(Ginfo entrada){

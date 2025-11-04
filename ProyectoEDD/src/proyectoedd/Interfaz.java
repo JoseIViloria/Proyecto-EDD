@@ -63,13 +63,19 @@ public class Interfaz extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        JOptionPane.showMessageDialog(rootPane, this.abrirarchivo(info));
-        graph = new Grafo(info.usuarios.length);
-        this.InsertarGinfo(graph, info);
-        this.construirGrafo(graph, grf);
-        this.actuaizar_Display();
+       JOptionPane.showMessageDialog(rootPane, this.abrirarchivo(info));
+       graph = new Grafo(info.usuarios.length);
+       this.InsertarGinfo(graph, info);
+       this.construirGrafo(graph, grf);
+       this.actuaizar_Display();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+            /**
+             * Abre un archivo elegido por el usuario.
+             * Recolecta la información necesaria en el mismo y la pasa a un contenedor Ginfo.
+             * @param entrada - un Ginfo en donde almacenar la información
+             * @return un texto que indica si la información se recolectó eexitosamente
+             */
             public String abrirarchivo(Ginfo entrada){
             String aux1 = "";    
             String aux2 = "";
@@ -126,6 +132,11 @@ public class Interfaz extends javax.swing.JFrame {
             return "Se ha leído el archivo exitosamente";
             }
             
+            /**
+             * Inserta la información contenida en un Ginfo en la lista de adyacencia de un Grafo.
+             * @param g - El grafo en donde se va a insertar la información
+             * @param x - El contenedor Ginfo del cual se extrae la información
+             */
             public void InsertarGinfo(Grafo g, Ginfo x){
                 for(int i=0; i<x.usuarios.length; i++){
                     g.insertarVertice(x.usuarios[i]);
@@ -137,6 +148,12 @@ public class Interfaz extends javax.swing.JFrame {
                }
             }
             
+            /**
+             * Pasa la información de la lista de adyacencia de Grafo a un objeto Graph.
+             * Esto permite que el objeto de la clase Grafo pueda ser mostrado en pantalla.
+             * @param x - El grafo del cual se extrae la información
+             * @param display - el "Graph" al cual se añadirá la información extraída
+             */
             public void construirGrafo(Grafo x, Graph display){
                 Nodo aux = new Nodo(null);
                 int i = 0;
@@ -165,6 +182,10 @@ public class Interfaz extends javax.swing.JFrame {
                 display.setAttribute("ui.antialias");
             }
             
+            /**
+             * Crea una nueva vista del grafo grf (de clase Graph), dentro de un Jpanel llamado "GraphPanel".
+             * Esto sirve para mostrar el grafo por primera vez después de cargar un archivo.
+             */
             public void actuaizar_Display(){
                 SwingViewer viewer = new SwingViewer(grf, Viewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD);
                 viewer.enableAutoLayout();

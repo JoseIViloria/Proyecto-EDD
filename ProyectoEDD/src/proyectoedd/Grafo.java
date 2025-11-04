@@ -147,6 +147,24 @@ public class Grafo {
     }
     
     /**
+     * Regresa un booleano que indica si la relación entre dos usuarios existe.
+     * @param from - String que corresponde al dato de un primer Nodo en la lista de adyacencia (ady)
+     * @param to - String que corresponde al dato del Nodo con el que se quiere buscar una relación.
+     * @return - true si la relación existe, false si no.
+     */
+    public boolean relacion_existe(String from, String to){
+        Nodo aux;
+        int position = this.posiciónVertice(from);
+        aux = this.getLista(position).primero();
+        while(aux!=null){
+            if(aux.getDato().equals(to)){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    /**
      * Regresa la posición dentro de el array ady, de un vértice que se busque.
      * @param x - El dato contenido dentro de uno de los vertices
      * @return la posición de el vertice buscado dentro del array ady.

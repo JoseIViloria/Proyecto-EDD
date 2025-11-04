@@ -9,9 +9,12 @@ import javax.swing.JFileChooser;
 import java.io.File;
 import java.io.FileReader;
 import java.io.BufferedReader;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
 import javax.swing.JOptionPane;
 import org.graphstream.graph.*;
 import org.graphstream.graph.implementations.*;
+import org.graphstream.ui.graphicGraph.GraphicGraph;
 import org.graphstream.ui.swing_viewer.*;
 import org.graphstream.ui.view.View;
 import org.graphstream.ui.view.Viewer;
@@ -23,6 +26,7 @@ public class Interfaz extends javax.swing.JFrame {
     Grafo graph;
     Ginfo info = new Ginfo();
     Graph grf = new SingleGraph("Grafo");
+    File archivo_guardado;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Interfaz.class.getName());
 
     /**
@@ -42,10 +46,26 @@ public class Interfaz extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
+        jButton3 = new javax.swing.JButton();
+        Box1 = new javax.swing.JComboBox<>();
+        Box2 = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        Box3 = new javax.swing.JComboBox<>();
+        jButton4 = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        Box4 = new javax.swing.JComboBox<>();
+        Box5 = new javax.swing.JComboBox<>();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
         GraphPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1000, 600));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton1.setText("Cargar Archivo");
@@ -54,28 +74,236 @@ public class Interfaz extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 120, 60));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 120, 60));
+
+        jButton2.setText("Actualizar Archivo");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 140, 60));
+        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 120, -1));
+
+        jButton3.setText("Añadir Usuario");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, -1, -1));
+
+        Box1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Box1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Box1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 340, 110, -1));
+
+        Box2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Box2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Box2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 120, -1));
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Nuevo Usuario:");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 100, -1));
+
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Relación:");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 320, 100, -1));
+
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Usuario:");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 80, -1));
+
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Usuario:");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, -1, -1));
+
+        Box3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Box3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Box3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 120, -1));
+
+        jButton4.setText("Borrar Usuario");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 290, 110, -1));
+
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Usuario:");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 270, -1, -1));
+
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Nueva Relación:");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, 100, -1));
+
+        Box4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Box4ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Box4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 120, -1));
+
+        Box5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        getContentPane().add(Box5, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 110, -1));
+
+        jButton5.setText("Añadir Relación");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 240, -1, -1));
+
+        jButton6.setText("Borrar Relación");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 340, 110, -1));
 
         GraphPanel.setLayout(new java.awt.BorderLayout());
-        getContentPane().add(GraphPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, 590, 470));
+        getContentPane().add(GraphPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 20, 310, 350));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       JOptionPane.showMessageDialog(rootPane, this.abrirarchivo(info));
-       graph = new Grafo(info.usuarios.length);
-       this.InsertarGinfo(graph, info);
-       this.construirGrafo(graph, grf);
-       this.actuaizar_Display();
+        JOptionPane.showMessageDialog(rootPane, this.abrirarchivo(info));
+        if (archivo_guardado!=null){
+            graph = new Grafo(info.usuarios.length);
+            this.InsertarGinfo(graph, info);
+            this.construirGrafo(graph, grf);
+            this.Cargar_Display();
+            for (int i = 0; i < info.usuarios.length; i++) {
+                Box2.addItem(info.usuarios[i]);
+                Box3.addItem(info.usuarios[i]);
+                Box4.addItem(info.usuarios[i]);
+                Box5.addItem(info.usuarios[i]);
+            }
+    }                                        
+
+
+        
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.ActualizarArchivo(info);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        try{
+            if (archivo_guardado!=null){
+                if ((!jTextField1.getText().equals(""))&&(!graph.verticeExiste(jTextField1.getText()))){
+                    this.añadir_usuario(jTextField1.getText(), info);
+                    graph = new Grafo(info.usuarios.length);
+                    grf.clear();
+                    this.InsertarGinfo(graph, info);
+                    this.construirGrafo(graph, grf);
+                    Box2.addItem(jTextField1.getText());
+                    Box3.addItem(jTextField1.getText());
+                    Box4.addItem(jTextField1.getText());
+                    Box5.addItem(jTextField1.getText());
+                }
+            }
+        }catch(Exception a){
+        
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void Box3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Box3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Box3ActionPerformed
+
+    private void Box4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Box4ActionPerformed
+        
+    }//GEN-LAST:event_Box4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        try{
+            String usuario_seleccionado = (String)Box4.getSelectedItem();
+            String relación_seleccionada = (String)Box5.getSelectedItem();
+            this.añadir_relación(usuario_seleccionado, relación_seleccionada, info);
+            graph = new Grafo(info.usuarios.length);
+            grf.clear();
+            this.InsertarGinfo(graph, info);
+            this.construirGrafo(graph, grf);
+        }catch(Exception a){
+            
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        try{
+            String usuario_seleccionado = (String)Box3.getSelectedItem();
+            Box2.removeItem(Box3.getSelectedItem());
+            Box4.removeItem(Box3.getSelectedItem());
+            Box5.removeItem(Box3.getSelectedItem());
+            Box3.removeItem(Box3.getSelectedItem());
+            this.eliminar_usuario(usuario_seleccionado, info);
+            //Revisar con un breakpoint y actualizar las cajas
+            graph = new Grafo(info.usuarios.length);
+            grf.clear();
+            this.InsertarGinfo(graph, info);
+            this.construirGrafo(graph, grf);
+        }catch(Exception a){
+            
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void Box1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Box1ActionPerformed
+        
+    }//GEN-LAST:event_Box1ActionPerformed
+
+    private void Box2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Box2ActionPerformed
+        try{
+            Box1.removeAllItems();
+            for (int i = 0; i < info.relaciones.length; i++) {
+                if(Box2.getSelectedItem().equals(info.relaciones[i][0])){
+                    Box1.addItem(info.relaciones[i][1]);
+                }
+            }
+        }catch(Exception a){
+            
+        }
+    }//GEN-LAST:event_Box2ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        try{
+            for (int i = 0; i < info.relaciones.length; i++) {
+                if((info.relaciones[i][0].equals(Box2.getSelectedItem()))&&(info.relaciones[i][1].equals(Box1.getSelectedItem()))){
+                   String user = info.relaciones[i][0];
+                   String rel = info.relaciones[i][1];
+                   this.eliminar_relación(user, rel, info);
+                   graph = new Grafo(info.usuarios.length);
+                   grf.clear();
+                   this.InsertarGinfo(graph, info);
+                   this.construirGrafo(graph, grf);
+                }   
+            }
+        }catch(Exception a){
+            
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
+
 
             /**
              * Abre un archivo elegido por el usuario.
              * Recolecta la información necesaria en el mismo y la pasa a un contenedor Ginfo.
              * @param entrada - un Ginfo en donde almacenar la información
-             * @return un texto que indica si la información se recolectó eexitosamente
+             * @return un texto que indica si la información se recolectó exitosamente
              */
+  
             public String abrirarchivo(Ginfo entrada){
             String aux1 = "";    
             String aux2 = "";
@@ -86,9 +314,13 @@ public class Interfaz extends javax.swing.JFrame {
             try{
                 JFileChooser elegir_archivo = new JFileChooser();
                 elegir_archivo.showOpenDialog(this);
-                File aaa = elegir_archivo.getSelectedFile();
-                if (aaa!=null){
-                    FileReader arc = new FileReader(aaa);
+                File archivo_elegido = elegir_archivo.getSelectedFile();
+                if (archivo_elegido==null){
+                    return "Ningún archivo fue elegido";
+                }else{
+                archivo_guardado = elegir_archivo.getSelectedFile();
+                if (archivo_elegido!=null){
+                    FileReader arc = new FileReader(archivo_elegido);
                     BufferedReader read = new BufferedReader(arc);
                     while(!(aux1=read.readLine()).equals("relaciones")){
                         if (!aux1.equals("usuarios")){
@@ -125,6 +357,7 @@ public class Interfaz extends javax.swing.JFrame {
                         }
                     }
                     leer.close();
+                }
             }
             }catch(Exception a){
                 return "Ocurrió un error al intentar leer el archivo";
@@ -132,11 +365,38 @@ public class Interfaz extends javax.swing.JFrame {
             return "Se ha leído el archivo exitosamente";
             }
             
+
+            public String ActualizarArchivo(Ginfo Entrada){
+                try{
+                    if (archivo_guardado!=null){
+                        FileWriter escribir = new FileWriter(archivo_guardado);
+                        BufferedWriter write = new BufferedWriter(escribir);
+                        write.write("usuarios");
+                        write.newLine();
+                        for (int i = 0; i < Entrada.usuarios.length; i++) {
+                            write.write(Entrada.usuarios[i]);
+                            write.newLine();
+                            }
+                        write.write("relaciones");
+                        write.newLine();
+                        for (int j = 0; j < Entrada.relaciones.length; j++) {
+                            write.write(Entrada.relaciones[j][0]+", "+Entrada.relaciones[j][1]);
+                            write.newLine();
+                        }
+                        write.close();
+                    }
+                }catch(Exception a){
+                    return "Ocurrió un error al intentar leer el archivo";
+                }
+                return "Se ha modificado el archivo exitosamente";
+            }
+            
             /**
              * Inserta la información contenida en un Ginfo en la lista de adyacencia de un Grafo.
              * @param g - El grafo en donde se va a insertar la información
              * @param x - El contenedor Ginfo del cual se extrae la información
              */
+
             public void InsertarGinfo(Grafo g, Ginfo x){
                 for(int i=0; i<x.usuarios.length; i++){
                     g.insertarVertice(x.usuarios[i]);
@@ -181,12 +441,89 @@ public class Interfaz extends javax.swing.JFrame {
                 }
                 display.setAttribute("ui.antialias");
             }
+          
+            public void eliminar_usuario(String username, Ginfo información){
+                int x = información.usuarios.length-1;
+                int i = 0;
+                String[] usuarios2 = new String[x];
+                while (i < información.usuarios.length) {
+                    if (información.usuarios[i].equals(username)){
+                        información.usuarios[i]=null;
+                        if ((i+1==información.usuarios.length)){
+                            for (int j = 0; j < x; j++) {
+                                usuarios2[j]=información.usuarios[j];
+                            }
+                        }else{
+                            for (; i < x; i++) {
+                                información.usuarios[i]=información.usuarios[i+1];
+                            }
+                            for (int j = 0; j < x; j++) {
+                                usuarios2[j]=información.usuarios[j];
+                            }
+                        }
+                        información.usuarios=usuarios2;
+                    }
+                    i++;
+                }
+            }
+            
+            public void añadir_usuario(String nuevo_usuario, Ginfo información){
+                int x = información.usuarios.length+1;
+                String[] usuarios2 = new String[x];
+                for (int i = 0; i < (x-1); i++) {
+                    usuarios2[i]=información.usuarios[i];
+                }
+                usuarios2[x-1]= nuevo_usuario;
+                información.usuarios=usuarios2;
+            }
+            
+            public void añadir_relación(String usuario, String nueva_relación, Ginfo información){
+                int x = información.relaciones.length+1;
+                String[][] relaciones2 = new String[x][2];
+                for (int i = 0; i < (x-1); i++) {
+                    relaciones2[i][0] = información.relaciones[i][0];
+                    relaciones2[i][1] = información.relaciones[i][1];
+                }
+                relaciones2[x-1][0] = usuario;
+                relaciones2[x-1][1] = nueva_relación;
+                información.relaciones = relaciones2;
+            }
+            
+            public void eliminar_relación(String usuario_eliminar, String relación_eliminar, Ginfo información){
+                int x = información.relaciones.length-1;
+                int i = 0;
+                String[][] relaciones2 = new String[x][2];
+                while (i<información.relaciones.length){
+                    if ((información.relaciones[i][0].equals(usuario_eliminar))&&(información.relaciones[i][1].equals(relación_eliminar))){
+                        información.relaciones[i][0]=null;
+                        información.relaciones[i][1]=null;
+                        if ((i+1)==información.usuarios.length){
+                            for (int j = 0; j < x; j++) {
+                                relaciones2[j][0]=información.relaciones[j][0];
+                                relaciones2[j][1]=información.relaciones[j][1];
+                            }
+                        } else {
+                            for (; i < x; i++) {
+                                información.relaciones[i][0]=información.relaciones[i+1][0];
+                                información.relaciones[i][1]=información.relaciones[i+1][1];
+                            }
+                            for (int j = 0; j < x; j++) {
+                                relaciones2[j][0]=información.relaciones[j][0];
+                                relaciones2[j][1]=información.relaciones[j][1];
+                            }
+                        }
+                        información.relaciones = relaciones2;
+                    }
+                    i++;
+                }
+            }
             
             /**
              * Crea una nueva vista del grafo grf (de clase Graph), dentro de un Jpanel llamado "GraphPanel".
              * Esto sirve para mostrar el grafo por primera vez después de cargar un archivo.
              */
-            public void actuaizar_Display(){
+            
+            public void Cargar_Display(){
                 SwingViewer viewer = new SwingViewer(grf, Viewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD);
                 viewer.enableAutoLayout();
                 View view = viewer.addDefaultView(true);
@@ -217,7 +554,24 @@ public class Interfaz extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> Box1;
+    private javax.swing.JComboBox<String> Box2;
+    private javax.swing.JComboBox<String> Box3;
+    private javax.swing.JComboBox<String> Box4;
+    private javax.swing.JComboBox<String> Box5;
     private javax.swing.JPanel GraphPanel;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

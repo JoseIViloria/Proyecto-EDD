@@ -41,6 +41,22 @@ public class Interfaz extends javax.swing.JFrame {
 
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
+        jButton3 = new javax.swing.JButton();
+        Box1 = new javax.swing.JComboBox<>();
+        Box2 = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        Box3 = new javax.swing.JComboBox<>();
+        jButton4 = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        Box4 = new javax.swing.JComboBox<>();
+        Box5 = new javax.swing.JComboBox<>();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1000, 600));
@@ -52,7 +68,7 @@ public class Interfaz extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 120, 60));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 120, 60));
 
         jButton2.setText("Actualizar Archivo");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -60,7 +76,75 @@ public class Interfaz extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, 140, 60));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 140, 60));
+        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 120, -1));
+
+        jButton3.setText("Añadir Usuario");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, -1, -1));
+
+        getContentPane().add(Box1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 340, 110, -1));
+
+        getContentPane().add(Box2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 120, -1));
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Nuevo Usuario:");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 100, -1));
+
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Relación:");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 320, 100, -1));
+
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Usuario:");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 80, -1));
+
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Usuario:");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, -1, -1));
+
+        Box3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Box3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Box3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 120, -1));
+
+        jButton4.setText("Borrar Usuario");
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 290, 110, -1));
+
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Usuario:");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 270, -1, -1));
+
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Nueva Relación:");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, 100, -1));
+
+        Box4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Box4ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Box4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 120, -1));
+
+        Box5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        getContentPane().add(Box5, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 110, -1));
+
+        jButton5.setText("Añadir Relación");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 240, -1, -1));
+
+        jButton6.setText("Borrar Relación");
+        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 340, 110, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -72,12 +156,56 @@ public class Interfaz extends javax.swing.JFrame {
             this.InsertarGinfo(graph, info);
             this.construirGrafo(graph, grf);
             grf.display();
+            for (int i = 0; i < info.usuarios.length; i++) {
+                Box2.addItem(info.usuarios[i]);
+                Box3.addItem(info.usuarios[i]);
+                Box4.addItem(info.usuarios[i]);
+                Box5.addItem(info.usuarios[i]);
+            }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.ActualizarArchivo(info);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        try{
+            if (archivo_guardado!=null){
+                this.añadir_usuario(jTextField1.getText(), info);
+                graph = new Grafo(info.usuarios.length);
+                this.construirGrafo(graph, grf);
+                grf.display();
+                Box2.addItem(jTextField1.getText());
+                Box3.addItem(jTextField1.getText());
+                Box4.addItem(jTextField1.getText());
+                Box5.addItem(jTextField1.getText());
+            }
+        }catch(Exception a){
+        
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void Box3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Box3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Box3ActionPerformed
+
+    private void Box4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Box4ActionPerformed
+        
+    }//GEN-LAST:event_Box4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        try{
+            String usuario_seleccionado = (String)Box4.getSelectedItem();
+            String relación_seleccionada = (String)Box5.getSelectedItem();
+            this.añadir_relación(usuario_seleccionado, relación_seleccionada, info);
+            graph = new Grafo(info.usuarios.length);
+                this.construirGrafo(graph, grf);
+                grf.display();
+        }catch(Exception a){
+            
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
 
             public String abrirarchivo(Ginfo entrada){
             String aux1 = "";    
@@ -235,7 +363,7 @@ public class Interfaz extends javax.swing.JFrame {
                 for (int i = 0; i < (x-1); i++) {
                     usuarios2[i]=información.usuarios[i];
                 }
-                usuarios2[x]= nuevo_usuario;
+                usuarios2[x-1]= nuevo_usuario;
                 información.usuarios=usuarios2;
             }
             
@@ -246,8 +374,8 @@ public class Interfaz extends javax.swing.JFrame {
                     relaciones2[i][0] = información.relaciones[i][0];
                     relaciones2[i][1] = información.relaciones[i][1];
                 }
-                relaciones2[x][0] = usuario;
-                relaciones2[x][1] = nueva_relación;
+                relaciones2[x-1][0] = usuario;
+                relaciones2[x-1][1] = nueva_relación;
                 información.relaciones = relaciones2;
             }
             
@@ -303,7 +431,23 @@ public class Interfaz extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> Box1;
+    private javax.swing.JComboBox<String> Box2;
+    private javax.swing.JComboBox<String> Box3;
+    private javax.swing.JComboBox<String> Box4;
+    private javax.swing.JComboBox<String> Box5;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

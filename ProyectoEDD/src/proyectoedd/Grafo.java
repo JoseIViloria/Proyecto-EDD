@@ -102,7 +102,7 @@ public class Grafo {
      * @param y - Posición de la lista en la que se quiere insertar el Nodo (dentro de ady)
      */
     public void insertarArista(String x, int y){
-        if (!(y+1>=this.getMaxVertices())){
+        if (!(y+1>this.getMaxVertices())){
             if(!(this.getLista(y).esVacio())){
                 this.getLista(y).insertar(x);
             }

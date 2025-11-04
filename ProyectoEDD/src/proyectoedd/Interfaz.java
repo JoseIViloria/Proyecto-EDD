@@ -144,7 +144,7 @@ public class Interfaz extends javax.swing.JFrame {
                 while(i<x.getVertices()){
                     display.addNode(x.getLista(i).primero().getDato().toString());
                     display.getNode(x.getLista(i).primero().getDato().toString()).setAttribute("ui.label", x.getLista(i).primero().getDato().toString());
-                    display.getNode(x.getLista(i).primero().getDato().toString()).setAttribute("ui.style", "fill-color: cyan;size: 70px;");
+                    display.getNode(x.getLista(i).primero().getDato().toString()).setAttribute("ui.style", "fill-color: cyan;size: 50px;");
                     i++;
                 }
                 i=0;

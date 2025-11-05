@@ -33,6 +33,16 @@ public class Pila {
             cima = newNodoPila;
             System.out.println("elemento"+data+"agregado");
         }
+        public int desapilar(){
+            if(esVacia()){
+                System.out.println("la pila esta vacia, no se puede desapilar");
+                
+            }
+            int data = cima.getData();
+            cima=cima.getNext();
+            return data;
+            
+        }
    
 
     

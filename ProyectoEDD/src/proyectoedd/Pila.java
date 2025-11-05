@@ -9,18 +9,30 @@ package proyectoedd;
  * @author Usuario
  */
 public class Pila {
-    private Nodo cima;
-    private int size;
+    private NodoPila cima;
    
     public Pila(){
         this.cima= null;
-        this.size =0;
     }
     
     public boolean esVacia(){
         return cima == null;
         
     }
+    
+    public int cima(){
+        if (esVacia()){
+            System.out.println("la pila se encuentra vacia");
+            return -1;
+                }
+        return cima.getData();
+    }
+        public void apilar (int data){
+            NodoPila newNodoPila= new NodoPila(data);
+            newNodoPila.setNext(cima);
+            cima = newNodoPila;
+            System.out.println("elemento"+data+"agregado");
+        }
    
 
     

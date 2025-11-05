@@ -193,6 +193,8 @@ public class Interfaz extends javax.swing.JFrame {
                 Box4.addItem(info.usuarios[i]);
                 Box5.addItem(info.usuarios[i]);
             }
+            Grafo x = new Grafo(info.usuarios.length);
+            this.transpuesto(info, graph, graph);
     }                                        
 
 
@@ -543,6 +545,20 @@ public class Interfaz extends javax.swing.JFrame {
                     }
                 }
                 información.relaciones=relaciones2;
+            }
+            
+            public void transpuesto(Ginfo informacion, Grafo actual, Grafo resultado){
+                Ginfo rrev = new Ginfo();
+                rrev.usuarios = new String[informacion.usuarios.length];
+                rrev.relaciones = new String[informacion.relaciones.length][2];
+                for(int i =0; i< informacion.usuarios.length; i++){
+                    rrev.usuarios[i] = informacion.usuarios[i];
+                }
+                for(int i=0; i<informacion.relaciones.length; i++){
+                    rrev.relaciones[i][0] = informacion.relaciones[i][1];
+                    rrev.relaciones[i][1] = informacion.relaciones[i][0];
+                }
+                this.InsertarGinfo(resultado, rrev);
             }
 
             /**

@@ -12,8 +12,16 @@ public class Pila {
     private Nodo cima;
     private int size;
    
-   
+    public Pila(){
+        this.cima= null;
+        this.size =0;
+    }
+    
+    public boolean esVacia(){
+        return cima == null;
         
     }
+   
+
     
 }

@@ -66,11 +66,18 @@ public class Interfaz extends javax.swing.JFrame {
         GraphPanel = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1280, 720));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jButton1.setBackground(new java.awt.Color(96, 220, 158));
         jButton1.setText("Cargar Archivo");
         jButton1.setToolTipText("Selecciona un archivo txt con el formato correcto para cargar el grafo");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -78,8 +85,9 @@ public class Interfaz extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, 120, 60));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 30, 140, 60));
 
+        jButton2.setBackground(new java.awt.Color(96, 158, 220));
         jButton2.setText("Actualizar Archivo");
         jButton2.setToolTipText("Sobrescribe el archivo cargado con la información mostrada actualmente en el grafo");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -92,6 +100,7 @@ public class Interfaz extends javax.swing.JFrame {
         jTextField1.setToolTipText("Introduzca el nombre del nuevo usuario aquí");
         getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 180, -1));
 
+        jButton3.setBackground(new java.awt.Color(96, 220, 220));
         jButton3.setText("Añadir Usuario");
         jButton3.setToolTipText("Añade el usuario en la caja \"Nuevo Usuario\" al grafo");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -138,6 +147,7 @@ public class Interfaz extends javax.swing.JFrame {
         });
         getContentPane().add(Box3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, 180, -1));
 
+        jButton4.setBackground(new java.awt.Color(236, 178, 152));
         jButton4.setText("Borrar Usuario");
         jButton4.setToolTipText("Elimina al usuario seleccionado del grafo");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -145,7 +155,7 @@ public class Interfaz extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 420, 110, -1));
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 420, 120, -1));
 
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Usuario:");
@@ -165,6 +175,7 @@ public class Interfaz extends javax.swing.JFrame {
         Box5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         getContentPane().add(Box5, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 330, 160, -1));
 
+        jButton5.setBackground(new java.awt.Color(96, 220, 220));
         jButton5.setText("Añadir Relación");
         jButton5.setToolTipText("Si no existe, crea una nueva relación entre los usuarios seleccionados");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -174,6 +185,7 @@ public class Interfaz extends javax.swing.JFrame {
         });
         getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 330, -1, -1));
 
+        jButton6.setBackground(new java.awt.Color(236, 178, 152));
         jButton6.setText("Borrar Relación");
         jButton6.setToolTipText("Si existe, elimina la relación entre los usuarios seleccionados");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -198,6 +210,36 @@ public class Interfaz extends javax.swing.JFrame {
         jLabel7.setVisible(false);
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 40, 120, -1));
 
+        jPanel3.setBackground(new java.awt.Color(96, 220, 158));
+        jPanel3.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel4.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel4.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 10, 700, 10));
+
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 10, 700, 10));
+
+        jPanel5.setBackground(new java.awt.Color(96, 220, 158));
+        jPanel5.setForeground(new java.awt.Color(0, 0, 0));
+        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 20, -1, 580));
+
+        jPanel6.setBackground(new java.awt.Color(96, 220, 158));
+        jPanel6.setForeground(new java.awt.Color(0, 0, 0));
+        getContentPane().add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(1240, 20, -1, 580));
+
+        jPanel1.setBackground(new java.awt.Color(96, 220, 158));
+        jPanel1.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel2.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel2.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 10, 700, 10));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 600, 700, 10));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -214,25 +256,15 @@ public class Interfaz extends javax.swing.JFrame {
                 Box3.addItem(info.usuarios[i]);
                 Box4.addItem(info.usuarios[i]);
                 Box5.addItem(info.usuarios[i]);
-            }
-<<<<<<< HEAD
-            Grafo x = new Grafo(info.usuarios.length);
-            this.transpuesto(info, graph, graph);
-    }                                        
-
-=======
+            }                                        
         }
         jButton1.setVisible(false);
         jLabel7.setVisible(true);
         jLabel7.setText(archivo_guardado.getName().replaceAll(".txt", ""));
         jLabel8.setVisible(true);
         jLabel8.setText("Archivo abierto:");
-        }catch(Exception a){
-            
-        }
->>>>>>> 72d9317518399b0123be7a617ecb5d7f54debada
-
-        
+        }catch(Exception a){           
+        }   
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -706,6 +738,12 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

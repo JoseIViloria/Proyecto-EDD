@@ -170,7 +170,7 @@ public class Grafo {
      * @param x - El dato contenido dentro de uno de los vertices
      * @return la posición de el vertice buscado dentro del array ady.
      */
-    public int posicionVertice(String x){
+    public int posiciónVertice(String x){
         int pos = 0;
         while(pos<this.getVertices()){
             if(this.getLista(pos).primero().getDato().equals(x)){

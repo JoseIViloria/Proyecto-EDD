@@ -17,7 +17,6 @@ public class ProyectoEDD {
         Interfaz display = new Interfaz();
         display.setVisible(true);
         System.setProperty("org.graphstream.ui", "swing");
-        
     }
     
 }

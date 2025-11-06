@@ -275,6 +275,12 @@ public class Interfaz extends javax.swing.JFrame {
                 this.InsertarGinfo(graph, info);
                 this.construirGrafo(graph, grf);
             }
+            Box1.removeAllItems();
+            for (int i = 0; i < info.relaciones.length; i++) {
+                if(Box2.getSelectedItem().equals(info.relaciones[i][0])){
+                    Box1.addItem(info.relaciones[i][1]);
+                }
+            }
         }catch(Exception a){
             JOptionPane.showMessageDialog(rootPane, "Ocurrió un error al añadir la nueva relación al grafo");
         }
@@ -292,13 +298,19 @@ public class Interfaz extends javax.swing.JFrame {
             grf.clear();
             this.InsertarGinfo(graph, info);
             this.construirGrafo(graph, grf);
+            Box1.removeAllItems();
+            for (int i = 0; i < info.relaciones.length; i++) {
+                if(Box2.getSelectedItem().equals(info.relaciones[i][0])){
+                    Box1.addItem(info.relaciones[i][1]);
+                }
+            }
         }catch(Exception a){
             JOptionPane.showMessageDialog(rootPane, "Ocurrió un error al eliminar el usuario del grafo");
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void Box1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Box1ActionPerformed
-        
+
     }//GEN-LAST:event_Box1ActionPerformed
 
     private void Box2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Box2ActionPerformed
@@ -321,6 +333,7 @@ public class Interfaz extends javax.swing.JFrame {
                    String user = info.relaciones[i][0];
                    String rel = info.relaciones[i][1];
                    this.eliminar_relación(user, rel, info);
+                   Box1.removeItem(Box1.getSelectedItem());
                    graph = new Grafo(info.usuarios.length);
                    grf.clear();
                    this.InsertarGinfo(graph, info);

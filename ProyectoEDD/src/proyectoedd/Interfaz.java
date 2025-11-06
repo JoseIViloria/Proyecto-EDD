@@ -64,30 +64,45 @@ public class Interfaz extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         GraphPanel = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1280, 720));
         setMinimumSize(new java.awt.Dimension(1280, 720));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jButton1.setBackground(new java.awt.Color(96, 220, 158));
         jButton1.setText("Cargar Archivo");
+        jButton1.setToolTipText("Selecciona un archivo txt con el formato correcto para cargar el grafo");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, 120, 60));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 30, 140, 60));
 
+        jButton2.setBackground(new java.awt.Color(96, 158, 220));
         jButton2.setText("Actualizar Archivo");
+        jButton2.setToolTipText("Sobrescribe el archivo cargado con la información mostrada actualmente en el grafo");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 120, 140, 60));
+
+        jTextField1.setToolTipText("Introduzca el nombre del nuevo usuario aquí");
         getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 180, -1));
 
+        jButton3.setBackground(new java.awt.Color(96, 220, 220));
         jButton3.setText("Añadir Usuario");
+        jButton3.setToolTipText("Añade el usuario en la caja \"Nuevo Usuario\" al grafo");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -132,13 +147,15 @@ public class Interfaz extends javax.swing.JFrame {
         });
         getContentPane().add(Box3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, 180, -1));
 
+        jButton4.setBackground(new java.awt.Color(236, 178, 152));
         jButton4.setText("Borrar Usuario");
+        jButton4.setToolTipText("Elimina al usuario seleccionado del grafo");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 420, 110, -1));
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 420, 120, -1));
 
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Usuario:");
@@ -158,7 +175,9 @@ public class Interfaz extends javax.swing.JFrame {
         Box5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         getContentPane().add(Box5, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 330, 160, -1));
 
+        jButton5.setBackground(new java.awt.Color(96, 220, 220));
         jButton5.setText("Añadir Relación");
+        jButton5.setToolTipText("Si no existe, crea una nueva relación entre los usuarios seleccionados");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
@@ -166,7 +185,9 @@ public class Interfaz extends javax.swing.JFrame {
         });
         getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 330, -1, -1));
 
+        jButton6.setBackground(new java.awt.Color(236, 178, 152));
         jButton6.setText("Borrar Relación");
+        jButton6.setToolTipText("Si existe, elimina la relación entre los usuarios seleccionados");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
@@ -177,10 +198,53 @@ public class Interfaz extends javax.swing.JFrame {
         GraphPanel.setLayout(new java.awt.BorderLayout());
         getContentPane().add(GraphPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 20, 680, 580));
 
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("jLabel7");
+        jLabel7.setRequestFocusEnabled(false);
+        jLabel7.setVisible(false);
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 470, 40));
+
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setText("jLabel7");
+        jLabel8.setRequestFocusEnabled(false);
+        jLabel7.setVisible(false);
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 40, 120, -1));
+
+        jPanel3.setBackground(new java.awt.Color(96, 220, 158));
+        jPanel3.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel4.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel4.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 10, 700, 10));
+
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 10, 700, 10));
+
+        jPanel5.setBackground(new java.awt.Color(96, 220, 158));
+        jPanel5.setForeground(new java.awt.Color(0, 0, 0));
+        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 20, -1, 580));
+
+        jPanel6.setBackground(new java.awt.Color(96, 220, 158));
+        jPanel6.setForeground(new java.awt.Color(0, 0, 0));
+        getContentPane().add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(1240, 20, -1, 580));
+
+        jPanel1.setBackground(new java.awt.Color(96, 220, 158));
+        jPanel1.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel2.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel2.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 10, 700, 10));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 600, 700, 10));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try{
         JOptionPane.showMessageDialog(rootPane, this.abrirarchivo(info));
         if (archivo_guardado!=null){
             graph = new Grafo(info.usuarios.length);
@@ -192,15 +256,23 @@ public class Interfaz extends javax.swing.JFrame {
                 Box3.addItem(info.usuarios[i]);
                 Box4.addItem(info.usuarios[i]);
                 Box5.addItem(info.usuarios[i]);
-            }
-    }                                        
-
-
-        
+            }                                        
+        }
+        jButton1.setVisible(false);
+        jLabel7.setVisible(true);
+        jLabel7.setText(archivo_guardado.getName().replaceAll(".txt", ""));
+        jLabel8.setVisible(true);
+        jLabel8.setText("Archivo abierto:");
+        }catch(Exception a){           
+        }   
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        this.ActualizarArchivo(info);
+        try{
+            this.ActualizarArchivo(info);
+        }catch(Exception a){
+            JOptionPane.showMessageDialog(rootPane, "Ocurrió un error y no se pudo actualizar el archivo");
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -219,12 +291,12 @@ public class Interfaz extends javax.swing.JFrame {
                 }
             }
         }catch(Exception a){
-        
+            JOptionPane.showMessageDialog(rootPane, "Ocurrió un error al añadir el usuario al grafo");
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void Box3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Box3ActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_Box3ActionPerformed
 
     private void Box4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Box4ActionPerformed
@@ -235,15 +307,21 @@ public class Interfaz extends javax.swing.JFrame {
         try{
             String usuario_seleccionado = (String)Box4.getSelectedItem();
             String relación_seleccionada = (String)Box5.getSelectedItem();
-            if(!graph.relacion_existe(usuario_seleccionado, relación_seleccionada)){
+            if((!graph.relacion_existe(usuario_seleccionado, relación_seleccionada))&&(!usuario_seleccionado.equals(relación_seleccionada))){
                 this.añadir_relación(usuario_seleccionado, relación_seleccionada, info);
                 graph = new Grafo(info.usuarios.length);
                 grf.clear();
                 this.InsertarGinfo(graph, info);
                 this.construirGrafo(graph, grf);
             }
+            Box1.removeAllItems();
+            for (int i = 0; i < info.relaciones.length; i++) {
+                if(Box2.getSelectedItem().equals(info.relaciones[i][0])){
+                    Box1.addItem(info.relaciones[i][1]);
+                }
+            }
         }catch(Exception a){
-            
+            JOptionPane.showMessageDialog(rootPane, "Ocurrió un error al añadir la nueva relación al grafo");
         }
     }//GEN-LAST:event_jButton5ActionPerformed
 
@@ -255,18 +333,23 @@ public class Interfaz extends javax.swing.JFrame {
             Box5.removeItem(Box3.getSelectedItem());
             Box3.removeItem(Box3.getSelectedItem());
             this.eliminar_usuario(usuario_seleccionado, info);
-            //Revisar con un breakpoint y actualizar las cajas
             graph = new Grafo(info.usuarios.length);
             grf.clear();
             this.InsertarGinfo(graph, info);
             this.construirGrafo(graph, grf);
+            Box1.removeAllItems();
+            for (int i = 0; i < info.relaciones.length; i++) {
+                if(Box2.getSelectedItem().equals(info.relaciones[i][0])){
+                    Box1.addItem(info.relaciones[i][1]);
+                }
+            }
         }catch(Exception a){
-            
+            JOptionPane.showMessageDialog(rootPane, "Ocurrió un error al eliminar el usuario del grafo");
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void Box1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Box1ActionPerformed
-        
+
     }//GEN-LAST:event_Box1ActionPerformed
 
     private void Box2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Box2ActionPerformed
@@ -289,6 +372,7 @@ public class Interfaz extends javax.swing.JFrame {
                    String user = info.relaciones[i][0];
                    String rel = info.relaciones[i][1];
                    this.eliminar_relación(user, rel, info);
+                   Box1.removeItem(Box1.getSelectedItem());
                    graph = new Grafo(info.usuarios.length);
                    grf.clear();
                    this.InsertarGinfo(graph, info);
@@ -296,7 +380,7 @@ public class Interfaz extends javax.swing.JFrame {
                 }   
             }
         }catch(Exception a){
-            
+            JOptionPane.showMessageDialog(rootPane, "Ocurrió un error al borrar la relación del grafo");
         }
     }//GEN-LAST:event_jButton6ActionPerformed
 
@@ -369,7 +453,12 @@ public class Interfaz extends javax.swing.JFrame {
             return "Se ha leído el archivo exitosamente";
             }
             
-
+            /**
+             * Actualiza el texto del archivo
+             * Sobreescribe el texto archivo con la información contenida en Ginfo
+             * @param Entrada - un Ginfo en donde está almacenada la información
+             * @return un texto que indica si la operación se realizó exitosamente
+             */
             public String ActualizarArchivo(Ginfo Entrada){
                 try{
                     if (archivo_guardado!=null){
@@ -400,7 +489,6 @@ public class Interfaz extends javax.swing.JFrame {
              * @param g - El grafo en donde se va a insertar la información
              * @param x - El contenedor Ginfo del cual se extrae la información
              */
-
             public void InsertarGinfo(Grafo g, Ginfo x){
                 for(int i=0; i<x.usuarios.length; i++){
                     g.insertarVertice(x.usuarios[i]);
@@ -445,7 +533,14 @@ public class Interfaz extends javax.swing.JFrame {
                 }
                 display.setAttribute("ui.antialias");
             }
-          
+            
+            /**
+             * Elimina uno de los usuarios en Ginfo
+             * Busca a un usuario en el array en Ginfo y lo borra del array junto con sus relaciones
+             * Intercambia el array de usuarios en Ginfo por uno nuevo de longitud menor sin el usuario eliminado
+             * @param username - String con el nombre del usuario a eliminar
+             * @param información - un Ginfo a modificar, del cual se extraerá la información
+             */   
             public void eliminar_usuario(String username, Ginfo información){
                 int x = información.usuarios.length-1;
                 int i = 0;
@@ -472,6 +567,12 @@ public class Interfaz extends javax.swing.JFrame {
                 }
             }
             
+            /**
+             * Añade un usuario nuevo a Ginfo
+             * Intercambia el array de usuarios en Ginfo por uno nuevo de longitud, el cual contiene al usuario nuevo
+             * @param nuevo_usuario - String que representa el nombre del usuario que será añadido
+             * @param información - un Ginfo que contiene un array con los usuarios
+             */
             public void añadir_usuario(String nuevo_usuario, Ginfo información){
                 int x = información.usuarios.length+1;
                 String[] usuarios2 = new String[x];
@@ -482,6 +583,13 @@ public class Interfaz extends javax.swing.JFrame {
                 información.usuarios=usuarios2;
             }
             
+            /**
+             * Añade una nueva relación a Ginfo
+             * Intercambia el array de relaciones en Ginfo por uno nuevo longitud mayor, el cual contiene la nueva relación
+             * @param usuario - String que representa al usuario a partir del cual se creará la relación
+             * @param nueva_relación - String que representa al usuario al que apunta la relación
+             * @param información - un Ginfo que contiene un array con las relaciones
+             */
             public void añadir_relación(String usuario, String nueva_relación, Ginfo información){
                 int x = información.relaciones.length+1;
                 String[][] relaciones2 = new String[x][2];
@@ -494,6 +602,13 @@ public class Interfaz extends javax.swing.JFrame {
                 información.relaciones = relaciones2;
             }
             
+            /**
+             * Elimina una relación de Ginfo
+             * Intercambia el array de relaciones en Ginfo por uno nuevo de longitud menor sin la relación eliminada
+             * @param usuario_eliminar - String que representa al usuario desde eñ cual empieza la relación
+             * @param relación_eliminar - String que representa al usuario al cual apunta la relación
+             * @param información - un Ginfo que contiene un array con las relaciones
+             */
             public void eliminar_relación(String usuario_eliminar, String relación_eliminar, Ginfo información){
                 int x = información.relaciones.length-1;
                 int i = 0;
@@ -523,6 +638,14 @@ public class Interfaz extends javax.swing.JFrame {
                 }
             }
             
+            /**
+             * Elimina todas las relaciones que contengan a un usuario
+             * Busca y elimina todas las relaciones en donde aparezca un usuario
+             * Intercambia el array de relaciones en Ginfo por uno nuevo de longitud menor sin las relaciones eliminadas
+             * Forma parte de "eliminar_usuario"
+             * @param usuario - String que representa al usuario del cual se quieren borrar todas las relaciones
+             * @param información - un Ginfo que contiene un array con relaciones
+             */
             public void BORRAR_RELACIONES(String usuario, Ginfo información){
                 int x = 0;
                 int j = 0;
@@ -543,6 +666,20 @@ public class Interfaz extends javax.swing.JFrame {
                     }
                 }
                 información.relaciones=relaciones2;
+            }
+            
+            public void transpuesto(Ginfo informacion, Grafo actual, Grafo resultado){
+                Ginfo rrev = new Ginfo();
+                rrev.usuarios = new String[informacion.usuarios.length];
+                rrev.relaciones = new String[informacion.relaciones.length][2];
+                for(int i =0; i< informacion.usuarios.length; i++){
+                    rrev.usuarios[i] = informacion.usuarios[i];
+                }
+                for(int i=0; i<informacion.relaciones.length; i++){
+                    rrev.relaciones[i][0] = informacion.relaciones[i][1];
+                    rrev.relaciones[i][1] = informacion.relaciones[i][0];
+                }
+                this.InsertarGinfo(resultado, rrev);
             }
 
             /**
@@ -599,6 +736,14 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

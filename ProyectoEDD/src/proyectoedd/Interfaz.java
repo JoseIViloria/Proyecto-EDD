@@ -185,6 +185,8 @@ public class Interfaz extends javax.swing.JFrame {
         if (archivo_guardado!=null){
             graph = new Grafo(info.usuarios.length);
             this.InsertarGinfo(graph, info);
+            System.out.println("--- Análisis de Componentes Fuertemente Conexos ---");
+        graph.imprimirComponentesFuertementeConexos();
             this.construirGrafo(graph, grf);
             this.Cargar_Display();
             for (int i = 0; i < info.usuarios.length; i++) {

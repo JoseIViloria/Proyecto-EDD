@@ -72,6 +72,7 @@ public class Interfaz extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+        jButton7 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1280, 720));
@@ -211,34 +212,38 @@ public class Interfaz extends javax.swing.JFrame {
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 40, 120, -1));
 
         jPanel3.setBackground(new java.awt.Color(96, 220, 158));
-        jPanel3.setForeground(new java.awt.Color(0, 0, 0));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel4.setBackground(new java.awt.Color(0, 0, 0));
-        jPanel4.setForeground(new java.awt.Color(0, 0, 0));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 10, 700, 10));
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 10, 700, 10));
 
         jPanel5.setBackground(new java.awt.Color(96, 220, 158));
-        jPanel5.setForeground(new java.awt.Color(0, 0, 0));
         getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 20, -1, 580));
 
         jPanel6.setBackground(new java.awt.Color(96, 220, 158));
-        jPanel6.setForeground(new java.awt.Color(0, 0, 0));
         getContentPane().add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(1240, 20, -1, 580));
 
         jPanel1.setBackground(new java.awt.Color(96, 220, 158));
-        jPanel1.setForeground(new java.awt.Color(0, 0, 0));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 0));
-        jPanel2.setForeground(new java.awt.Color(0, 0, 0));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 10, 700, 10));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 600, 700, 10));
+
+        jButton7.setBackground(new java.awt.Color(153, 102, 255));
+        jButton7.setText("Identificar componentes");
+        jButton7.setToolTipText("Identifica y colorea componentes fuertemente conectados");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 570, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -383,6 +388,11 @@ public class Interfaz extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Ocurrió un error al borrar la relación del grafo");
         }
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+      colorearComponentesFuertementeConectados();
+  // TODO add your handling code here:
+    }//GEN-LAST:event_jButton7ActionPerformed
 
 
             /**
@@ -694,7 +704,77 @@ public class Interfaz extends javax.swing.JFrame {
                 view.openInAFrame(false);
                 GraphPanel.add((Component) view, BorderLayout.CENTER);
             }
+            private void colorearComponentesFuertementeConectados() {
+                try {
+                    if (graph != null) {
+                // Encontrar componentes
+                String[][] componentes = graph.EncontrarComponentesFuertementeConectados();
+                String[] colores = graph.obtenerColoresComponentes(componentes.length);
+                grf.clear();
+                construirGrafoConColores(graph, grf, componentes, colores);
+                
+                // Mostrar información
+                String mensaje = "Se encontraron " + componentes.length + " componentes fuertemente conectados:\n";
+                for (int i = 0; i < componentes.length; i++) {
+                    mensaje += "Componente " + (i+1) + ": " + java.util.Arrays.toString(componentes[i]) + "\n";
+                }
+                JOptionPane.showMessageDialog(rootPane, mensaje);
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Primero debe cargar un grafo");
+            }
+        }   catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Error al colorear componentes: " + e.getMessage());
+        }
+}
+         public void construirGrafoConColores(Grafo x, Graph display, String[][] componentes, String[] colores) {
+        Nodo aux = new Nodo(null);
+        int i = 0;
+        int j = 0;
+            while(i < x.getVertices()){
+            String usuarioActual = x.getLista(i).primero().getDato().toString();
+            display.addNode(usuarioActual);
+            display.getNode(usuarioActual).setAttribute("ui.label", usuarioActual);
             
+            // Buscar en qué componente está este usuario y asignar color
+            String color = "#00FFFF"; // Color por defecto (cyan)
+            for (int compIndex = 0; compIndex < componentes.length; compIndex++) {
+                for (String usuarioComponente : componentes[compIndex]) {
+                    if (usuarioComponente.equals(usuarioActual)) {
+                        color = colores[compIndex];
+                        break;
+                    }
+        }
+
+    
+    }
+    display.getNode(usuarioActual).setAttribute("ui.style","fill-color: " + color + "; size: 50px; text-size: 20; text-style: bold;");
+            i++;
+        }
+        
+        // Luego crea las aristas
+        i = 0;
+        j = 0;
+        while(i < x.getVertices()){
+            aux = x.getLista(i).primero();
+            String usuarioOrigen = aux.getDato().toString();
+            aux = aux.getpNext();
+            
+            while(aux != null){
+                String usuarioDestino = aux.getDato().toString();
+                
+                // Crear arista con ID único
+                String edgeId = usuarioOrigen + "_to_" + usuarioDestino + "_" + i + "_" + j;
+                display.addEdge(edgeId, usuarioOrigen, usuarioDestino, true);
+                display.getEdge(edgeId).setAttribute("ui.style", "fill-color: black; arrow-size: 10px;");
+                aux = aux.getpNext();
+                j++;
+            }
+            i++;
+            j = 0;
+        }
+        display.setAttribute("ui.antialias");
+        display.setAttribute("ui.stylesheet", "node { text-alignment: under; }");
+         }
     public static void main(String args[]) {
 
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -730,6 +810,7 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -9,41 +9,26 @@ package proyectoedd;
  * @author Usuario
  */
 public class Pila {
-    private NodoPila cima;
-   
-    public Pila(){
-        this.cima= null;
+    private Nodo cima;
+    
+    public Pila() {
+        this.cima = null;
     }
     
-    public boolean esVacia(){
-        return cima == null;
-        
+    public void push(int valor) {
+        Nodo nuevo = new Nodo(valor);
+        nuevo.setpNext(cima);
+        cima = nuevo;
     }
-    
-    public int cima(){
-        if (esVacia()){
-            System.out.println("la pila se encuentra vacia");
+    public boolean estaVacia() {
+        return cima == null;}
+    public int pop() {
+        if (estaVacia()) {
             return -1;
-                }
-        return cima.getData();
+        }
+        int valor = (int) cima.getDato();
+        cima = cima.getpNext();
+        return valor;
     }
-        public void apilar (int data){
-            NodoPila newNodoPila= new NodoPila(data);
-            newNodoPila.setNext(cima);
-            cima = newNodoPila;
-            System.out.println("elemento"+data+"agregado");
-        }
-        public int desapilar(){
-            if(esVacia()){
-                System.out.println("la pila esta vacia, no se puede desapilar");
-                
-            }
-            int data = cima.getData();
-            cima=cima.getNext();
-            return data;
-            
-        }
-   
-
     
 }

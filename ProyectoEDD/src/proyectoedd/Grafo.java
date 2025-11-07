@@ -97,9 +97,9 @@ public class Grafo {
     
     /**
      * Inserta un nuevo nodo a una de las listas del array ady.
-     * El nuevo Nodo no puede ser el primero de la lista, ya que este representa un vértice del Grafo
+     * El nuevo Nodo no puede ser el primero de la lista, ya que  representa un vértice del Grafo
      * @param x - "Dato" del Nodo que se insertará en la lista
-     * @param y - Posición de la lista en la que se quiere insertar el Nodo (dentro de ady)
+     * @param y - Posición de la lista en la que se quiere insertar el Nodo
      */
     public void insertarArista(String x, int y){
         if (!(y+1>this.getMaxVertices())){
@@ -111,7 +111,7 @@ public class Grafo {
     
     /**
      * Elimina una de las listas en el array.
-     * No cambia el tamaño del array y listas posteriores a la borrada pasan a ocupar su lugar.
+     * No cambia el tamaño del array y listas siguientes a la borrada pasan a ocupar su lugar.
      * @param y - Posición de una lista en el array
      */
     public void elminarVertice(int y){
@@ -132,7 +132,7 @@ public class Grafo {
     
     /**
      * Comprueba si el vértice con la información X se encuentra en la lista de adyacencia.
-     * @param x - El dato contenido en uno de los vértices.
+     * @param x - El dato que hay  en uno de los vértices.
      * @return boolean True si el vértice existe, False en el caso  contrario
      */
     public boolean verticeExiste(String x){
@@ -148,8 +148,8 @@ public class Grafo {
     
     /**
      * Regresa un booleano que indica si la relación entre dos usuarios existe.
-     * @param from - String que corresponde al dato de un primer Nodo en la lista de adyacencia (ady)
-     * @param to - String que corresponde al dato del Nodo con el que se quiere buscar una relación.
+     * @param from - String correspondiente al dato de  primer Nodo en la lista de adyacencia 
+     * @param to - String correspondiente al dato del Nodo con el que se quiere buscar una relación.
      * @return - true si la relación existe, false si no.
      */
     public boolean relacion_existe(String from, String to){
@@ -166,7 +166,7 @@ public class Grafo {
     }
     
     /**
-     * Regresa la posición dentro de el array ady, de un vértice que se busque.
+     * Regresa la posición dentro de el array ady, de un vértice que bisque
      * @param x - El dato contenido dentro de uno de los vertices
      * @return la posición de el vertice buscado dentro del array ady.
      */
@@ -208,18 +208,18 @@ public class Grafo {
         
         visitados[verticeActual] = true;
         
-        Nodo primerNodo =  this.getLista(verticeActual).primero();
-        String datoActual =(String) primerNodo.getDato();
+        Nodo<String> primerNodo = (Nodo<String>) this.getLista(verticeActual).primero();
+        String datoActual = primerNodo.getDato();
         resultado.insertar(datoActual);
-        Nodo adyacente = this.getLista(verticeActual).primero().getpNext();
+        Nodo<String> adyacente = (Nodo<String>) this.getLista(verticeActual).primero().getpNext();
         while (adyacente != null){
-            String datoAdyacente = (String)adyacente.getDato();
+            String datoAdyacente = adyacente.getDato();
             int posAdyacente = this.posiciónVertice(datoAdyacente);
             
             if (posAdyacente != -1 && !visitados[posAdyacente]){
                 DFSRecursivo(posAdyacente, visitados, resultado);
             }
-            adyacente =  adyacente.getpNext();
+            adyacente = (Nodo<String>) adyacente.getpNext();
         }
     }
     public boolean HayenlaceDFS(String inicio, String destino){
@@ -238,352 +238,155 @@ public class Grafo {
         }
         visitados[actual] = true;
         
-        Nodo adyacente =  this.getLista(actual).primero().getpNext();
+        Nodo<String> adyacente = (Nodo<String>) this.getLista(actual).primero().getpNext();
         while (adyacente != null){
-            String datoAdyacente = (String)adyacente.getDato();
+            String datoAdyacente = adyacente.getDato();
             int posAdyacente = this.posiciónVertice(datoAdyacente);
             if (posAdyacente != -1 && !visitados[posAdyacente]){
                 if (HayenlaceDFSRecursivo(posAdyacente, destino, visitados)){
                     return true;
                 }
             }
-            adyacente =  adyacente.getpNext();
+            adyacente = (Nodo<String>) adyacente.getpNext();
         }
         return false;
+        
+ }
+     public String[][]EncontrarComponentesFuertementeConectados(){
+         if(this.getVertices()==0){
+             return new String [0][0];
          }
-    
-    public void imprimirdfs(String inicio){
-        Lista resultado = this.DFS(inicio);
-        System.out.println("DFS DE " + inicio + ":");
-        if (resultado.esVacio()){
-            System.out.println("El grafo esta vacio");
-        } else {
-            Nodo actual =  resultado.primero();
-            while (actual != null){
-                System.out.print(actual.getDato() + " ");
-                actual = actual.getpNext();
-            }
-            System.out.println();
-        }
-    }
-    public Lista DFSTranspuesto(String inicio) {
-        Grafo grafoTranspuesto = this.obtenerGrafoTranspuesto();
-    return grafoTranspuesto.DFS(inicio);
-    }
-    
-    
-     public Grafo obtenerGrafoTranspuesto(){
-        Grafo transpuesto = new Grafo(this.getMaxVertices());
-        
-        for (int i = 0; i < this.getVertices(); i++){
-            String datoVertice = (String) this.getLista(i).primero().getDato();
-            transpuesto.insertarVertice(datoVertice);
-        }
-        
-        for (int i = 0; i < this.getVertices(); i++){
-            String from = (String) this.getLista(i).primero().getDato();
-            int posFrom = transpuesto.posiciónVertice(from);
-        Nodo adyacente = this.getLista(i).primero().getpNext();
-            while (adyacente != null){
-                String to = (String)adyacente.getDato();
-                int posTo = transpuesto.posiciónVertice(to);
-                
-                if (posTo != -1){
-                    transpuesto.insertarArista(from, posTo);
-                }
-                adyacente = adyacente.getpNext();
-            }
-        }
-        return transpuesto;
-    }
-      public void imprimirDFSTranspuesto(String inicio){
-        Lista resultado = this.DFSTranspuesto(inicio);
-        System.out.print("DFS Transpuesto de " + inicio + ": ");
-        if (resultado.esVacio()){
-            System.out.println("No hay vertice");
-        } else {
-            Nodo actual =  resultado.primero();
-            while (actual != null){
-                System.out.print(actual.getDato() + " ");
-                actual =  actual.getpNext();
-            }
-            System.out.println();
-        }
-    }
-      public boolean existeCamino(String inicio, String destino) {
-    return HayenlaceDFS(inicio, destino);
-}
-    
-    
-    
-    public void compararDFSConTranspuesto(String inicio) {
-        Lista dfsNormal = this.DFS(inicio);
-        Lista dfsTranspuesto = this.DFSTranspuesto(inicio);
-        
-        System.out.println("Comparación para vértice: " + inicio);
-        System.out.print("DFS Normal: ");
-        imprimirLista(dfsNormal);
-        
-        System.out.print("DFS Transpuesto: ");
-        imprimirLista(dfsTranspuesto);
-    }
-    
-    private void imprimirLista(Lista lista) {
-        if (lista == null || lista.esVacio()) {
-            System.out.println("Lista vacía");
-            return;
-        }
-        
-        Nodo actual =  lista.primero();
-        actual = actual.getpNext();
-        while (actual != null) {
-            System.out.print(actual.getDato() + " ");
-            actual = (Nodo<String>) actual.getpNext();
-            }
-        System.out.println();
-    }
-    
-    /// Creacion de componentes fuertemente enlazados 
-    
-    public Lista componentesFuertementeConectados() {
-        Lista componentes = new Lista();
-        
-        Lista orden = new Lista();
-        boolean[] visitados = new boolean[this.getVertices()];
-        
-        for (int i = 0; i < this.getVertices(); i++) {
-            if (!visitados[i]) {
-                DFSOrden(i, visitados, orden);
-            }
-        }
-         Grafo grafoTranspuesto = this.obtenerGrafoTranspuesto();
-        boolean[] visitadosTranspuesto = new boolean[this.getVertices()];
-        Lista ordenInverso = invertirLista(orden);
-        Nodo actual = ordenInverso.primero();
-        while (actual != null) {
-            String nombreVertice = (String)actual.getDato();
-            int vertice = this.posiciónVertice(nombreVertice);
-            
-            if (vertice != -1 && !visitadosTranspuesto[vertice]) {
-                Lista componente = new Lista();
-                grafoTranspuesto.DFSRecursivoSCC(vertice, visitadosTranspuesto, componente);
-                componentes.insertar(componente);
-            }
-            actual =  actual.getpNext();
-               }
-        return componentes;
-    }
-    private Lista invertirLista(Lista original) {
-    Lista invertida = new Lista();
-    Nodo actual = original.primero();
-    
-    while (actual != null) {
-        invertida.insertar(actual.getDato());
-        actual = actual.getpNext();
-    }
-    return invertida;
-}
-    private void DFSOrden(int vertice, boolean[] visitados, Lista orden) {
+         Pila pila = new Pila();
+         boolean[]visitados = new boolean[this.getVertices()];
+         for (int i= 0; i< this.getVertices();i++){
+             if (!visitados[i]){
+                 primeraDFS(i, visitados,pila);
+             }
+         }
+         
+         Grafo grafoTranspuesto= transponerGrafo();
+         
+         visitados= new boolean[this.getVertices()];
+         String[][] componentesTemp = new String [this.getVertices()][];
+         int numComponentes = 0;
+         
+         while (!pila.estaVacia()){
+             int vertice = pila.pop();
+             if(!visitados[vertice]){
+                 Lista componenteLista= new Lista();
+                 segundaDFS (grafoTranspuesto,vertice,visitados,componenteLista);
+                 
+                 String[]componente = listaToArray(componenteLista);
+                 componentesTemp[numComponentes++]=componente;
+             }
+         }
+         String[][]resultado = new String[numComponentes][];
+         for(int i =0; i<numComponentes;i++){
+             resultado[i]=componentesTemp[i];
+         }
+         return resultado;
+     }
+     
+     private void primeraDFS (int vertice, boolean[]visitados,Pila pila){
+         visitados[vertice]=true;
+         
+         Nodo adyacente = this.getLista(vertice).primero().getpNext();
+         while (adyacente!= null){
+             String datoAdyacente = (String) adyacente.getDato();
+             int posAdyacente = this.posiciónVertice(datoAdyacente);
+             if (posAdyacente != -1 && !visitados[posAdyacente]){
+                 primeraDFS(posAdyacente,visitados,pila);
+                 
+             }
+             adyacente=adyacente.getpNext();
+         }
+         
+         pila.push(vertice);
+         
+     }
+     
+     private Grafo transponerGrafo(){
+         Grafo transpuesto = new Grafo(this.getMaxVertices());
+         for (int i=0 ; i< this.getVertices();i++){
+             String usuario = (String) this.getLista(i).primero().getDato();
+             transpuesto.insertarVertice(usuario);
+         }
+         for (int i = 0 ; i<this.getVertices();i++){
+             String usuarioOrigen= (String) this.getLista(i).primero().getDato();
+             Nodo adyacente = this.getLista(i).primero().getpNext();
+             
+             while (adyacente != null){
+                 String usuarioDestino = (String) adyacente.getDato();
+                 int posDestino= transpuesto.posiciónVertice(usuarioDestino);
+                 if (posDestino!= -1){
+                     transpuesto.insertarArista(usuarioOrigen, posDestino);
+                 }
+                 adyacente = adyacente.getpNext();
+             }
+         }
+         return transpuesto;
+     }
+     private void segundaDFS(Grafo grafo, int vertice, boolean[] visitados, Lista componente) {
         visitados[vertice] = true;
         
-        Nodo adyacente = this.getLista(vertice).primero().getpNext();
+        
+        String usuario = (String) grafo.getLista(vertice).primero().getDato();
+        componente.insertar(usuario);
+        // Recorrer vértices adyacentes en grafo transpuesto
+        Nodo adyacente = grafo.getLista(vertice).primero().getpNext();
         while (adyacente != null) {
-            String datoAdyacente = (String)adyacente.getDato();
-            int posAdyacente = this.posiciónVertice(datoAdyacente); 
+            String datoAdyacente = (String) adyacente.getDato();
+            int posAdyacente = grafo.posiciónVertice(datoAdyacente);
             if (posAdyacente != -1 && !visitados[posAdyacente]) {
-                DFSOrden(posAdyacente, visitados, orden);
+                segundaDFS(grafo, posAdyacente, visitados, componente);
             }
             adyacente = adyacente.getpNext();
         }
-        
-        String datoVertice = (String) this.getLista(vertice).primero().getDato();
-        orden.insertar(datoVertice);
     }
-    
-    private void DFSRecursivoSCC(int verticeActual, boolean[] visitados, Lista componente) {
-        visitados[verticeActual] = true;
-       String datoActual = (String) this.getLista(verticeActual).primero().getDato();
-        componente.insertar(datoActual);
-        
-        Nodo adyacente = this.getLista(verticeActual).primero().getpNext();
-        while (adyacente != null) {
-            String datoAdyacente =(String) adyacente.getDato();
-            int posAdyacente = this.posiciónVertice(datoAdyacente);
-            
-            if (posAdyacente != -1 && !visitados[posAdyacente]) {
-                DFSRecursivoSCC(posAdyacente, visitados, componente);
-            }
-            adyacente = adyacente.getpNext();
-            }
-    }
-    
-    public Lista[] obtenerComponentesParaColores() {
-        Lista componentesLista = this.componentesFuertementeConectados();
-        
-        int count = 0;
-        Nodo temp = componentesLista.primero();
-        while (temp != null) {
-            count++;
-            temp = temp.getpNext();
+     /**
+     * Convierte una Lista a array de Strings
+     */
+    private String[] listaToArray(Lista lista) {
+        if (lista == null || lista.esVacio()) {
+            return new String[0];
         }
-         Lista[] componentesArray = new Lista[count];
-        temp = componentesLista.primero();
-        for (int i = 0; i < count; i++) {
-            componentesArray[i] = (Lista) temp.getDato();
-            temp = temp.getpNext();
-        }
-        
-        return componentesArray;
-    }
-    public void imprimirComponentesConectados() {
-        Lista componentes = this.componentesFuertementeConectados();
-        System.out.println("COMPONENTES FUERTEMENTE CONECTADOS ");
-        
-        if (componentes.esVacio()) {
-            System.out.println("No hay componentes");
-            return;
-        }
-        String[] paletaColores = {
-        " ROJO", " AZUL", " VERDE", " AMARILLO", " NARANJA",
-        " MORADO", " ROSA", " GRIS", " MARRÓN", " CORAL"
-    };
-        
-        Nodo<Lista> componenteActual =(Nodo<Lista>) componentes.primero();
-        int numero = 1;
-        
-        while (componenteActual != null) {
-            Lista componente = componenteActual.getDato();
-            String color = (numero - 1 < paletaColores.length) ? 
-                      paletaColores[numero - 1] : "Color " + numero;
-            System.out.print("Componente " + numero + ": ");
-          Nodo<String> vertice = (Nodo<String>) componente.primero();
-            while (vertice != null) {
-                System.out.print(vertice.getDato() + " ");
-                vertice =  vertice.getpNext();
-            }
-            System.out.println();
-            
-            componenteActual = componenteActual.getpNext();
-            numero++;
-        }
-    }
-    /**
- * Asigna colores a los componentes fuertemente conectados
- * Cada componente recibe un color diferente
- * @return Array de Strings con [vértice, color] para cada vértice
- */
-public String[] colorearComponentes() {
-    Lista componentes = this.componentesFuertementeConectados();
-    String[] colores = new String[this.getVertices()];
-    
-    // Array de colores disponibles
-    String[] paletaColores = {
-        "ROJO", "AZUL", "VERDE", "AMARILLO", "NARANJA", 
-        "MORADO", "ROSA",  "MARRON", "GRIS", "CORAL"
-    };
-    
-    Nodo<Lista> componenteActual = (Nodo<Lista>) componentes.primero();
-    int colorIndex = 0;
-    
-    // Recorrer cada componente
-    while (componenteActual != null && colorIndex < paletaColores.length) {
-        Lista componente = componenteActual.getDato();
-        String color = paletaColores[colorIndex];
-        
-        // Colorear todos los vértices del componente con el mismo color
-        Nodo<String> vertice = (Nodo<String>) componente.primero();
-        while (vertice != null) {
-            String nombreVertice = vertice.getDato();
-            int posicion = this.posiciónVertice(nombreVertice);
-            
-            if (posicion != -1) {
-                colores[posicion] = color;
-            }
-            vertice = vertice.getpNext();
-        }
-        
-        componenteActual = componenteActual.getpNext();
-        colorIndex++;
-    }
-    
-    return colores;
-}
 
-/**
- * Muestra los componentes con sus colores asignados
- */
-public void mostrarComponentesColoreados() {
-    System.out.println("=== COMPONENTES FUERTEMENTE CONECTADOS CON COLORES ===");
-    
-    Lista componentes = this.componentesFuertementeConectados();
-    String[] coloresVertices = this.colorearComponentes();
-    
-    String[] paletaColores = {
-        "ROJO", "AZUL", "VERDE", "AMARILLO", "NARANJA", 
-        "MORADO", "ROSA", "CORAL", "MARRON", "GRIS"
-    };
-    
-    Nodo<Lista> componenteActual = (Nodo<Lista>) componentes.primero();
-    int numero = 1;
-    
-    while (componenteActual != null) {
-        Lista componente = componenteActual.getDato();
-        
-        // Obtiene el color del primer vértice del componente
-        Nodo<String> primerVertice = (Nodo<String>) componente.primero();
-        if (primerVertice != null) {
-            String primerVerticeStr = primerVertice.getDato();
-            int pos = this.posiciónVertice(primerVerticeStr);
-            String color = (pos != -1 && coloresVertices[pos] != null) ? 
-                          coloresVertices[pos] : "SIN COLOR";
-            
-            System.out.print("Componente " + numero + " (" + color + "): ");
-            
-            // Muestra todos los vértices del componente
-            Nodo<String> vertice = primerVertice;
-            while (vertice != null) {
-                System.out.print(vertice.getDato() + " ");
-                vertice = vertice.getpNext();
-            }
-            System.out.println();
+        int count = 0;
+        Nodo actual = lista.primero();
+        while (actual != null) {
+            count++;
+            actual = actual.getpNext();
+        }
+        String[] array = new String[count];
+        actual = lista.primero();
+        for (int i = 0; i < count; i++) {
+            array[i] = (String) actual.getDato();
+            actual = actual.getpNext();
         }
         
-        componenteActual = componenteActual.getpNext();
-        numero++;
+        return array;
     }
-}
-///muestra la asignacon de colores por vertice
-public void mostrarColoresPorVertice() {
-    System.out.println("=== ASIGNACIÓN DE COLORES POR VÉRTICE ===");
-    
-    String[] colores = this.colorearComponentes();
-    
-    for (int i = 0; i < this.getVertices(); i++) {
-        String nombreVertice = (String) this.getLista(i).primero().getDato();
-        String color = (colores[i] != null) ? colores[i] : "SIN COLOR";
-        System.out.println("Vértice " + nombreVertice + " → Color: " + color);
-    }
-}
-public String obtenerColorVertice(String vertice) {
-    String[] colores = this.colorearComponentes();
-    int posicion = this.posiciónVertice(vertice);
-    
-    if (posicion != -1 && colores[posicion] != null) {
-        return colores[posicion];
-    }
-    return "SIN COLOR";
-}
-public Lista obtenerVerticesMismoColor(String color) {
-    Lista resultado = new Lista();
-    String[] colores = this.colorearComponentes();
-    
-    for (int i = 0; i < this.getVertices(); i++) {
-        if (color.equals(colores[i])) {
-            String nombreVertice = (String) this.getLista(i).primero().getDato();
-            resultado.insertar(nombreVertice);
+    public String[] obtenerColoresComponentes(int numComponentes) {
+        String[] colores = {"#FF0000", "#00FF00", "#0000FF", "#FFFF00", "#FF00FF", "#00FFFF", 
+                            "#FFA500", "#800080", "#008000", "#800000"};
+        String[] coloresAsignados = new String[numComponentes];
+        
+        for (int i = 0; i < numComponentes && i < colores.length; i++) {
+            coloresAsignados[i] = colores[i];
         }
+        for (int i = colores.length; i < numComponentes; i++) {
+            coloresAsignados[i] = colores[i % colores.length];
+        }
+        
+        return coloresAsignados;
     }
+
+        
+}
+       
+        
+        
+        
+                
     
-    return resultado;
-}
-}
+

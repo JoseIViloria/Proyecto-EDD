@@ -19,16 +19,14 @@ import org.graphstream.ui.swing_viewer.*;
 import org.graphstream.ui.view.View;
 import org.graphstream.ui.view.Viewer;
 /**
- *
- * @author
+ * Interfaz del programa.
+ * @author José Viloria, Luis Viloria, Diego Guzmán
  */
 public class Interfaz extends javax.swing.JFrame {
     Grafo graph;
     Ginfo info = new Ginfo();
     Graph grf = new SingleGraph("Grafo");
     File archivo_guardado;
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Interfaz.class.getName());
-
     /**
      * Creates new form Interfaz
      */
@@ -678,19 +676,6 @@ public class Interfaz extends javax.swing.JFrame {
                 información.relaciones=relaciones2;
             }
             
-            public void transpuesto(Ginfo informacion, Grafo actual, Grafo resultado){
-                Ginfo rrev = new Ginfo();
-                rrev.usuarios = new String[informacion.usuarios.length];
-                rrev.relaciones = new String[informacion.relaciones.length][2];
-                for(int i =0; i< informacion.usuarios.length; i++){
-                    rrev.usuarios[i] = informacion.usuarios[i];
-                }
-                for(int i=0; i<informacion.relaciones.length; i++){
-                    rrev.relaciones[i][0] = informacion.relaciones[i][1];
-                    rrev.relaciones[i][1] = informacion.relaciones[i][0];
-                }
-                this.InsertarGinfo(resultado, rrev);
-            }
 
             /**
              * Crea una nueva vista del grafo grf (de clase Graph), dentro de un Jpanel llamado "GraphPanel".
@@ -704,98 +689,66 @@ public class Interfaz extends javax.swing.JFrame {
                 view.openInAFrame(false);
                 GraphPanel.add((Component) view, BorderLayout.CENTER);
             }
+            
+            /**
+             * Función que permite colorear los componentes fuertemente conectados en el grafo grf.
+             */
             private void colorearComponentesFuertementeConectados() {
-                try {
-                    if (graph != null) {
-                // Encontrar componentes
+                if (graph != null) {
                 String[][] componentes = graph.EncontrarComponentesFuertementeConectados();
                 String[] colores = graph.obtenerColoresComponentes(componentes.length);
                 grf.clear();
                 construirGrafoConColores(graph, grf, componentes, colores);
-                
-                // Mostrar información
-                String mensaje = "Se encontraron " + componentes.length + " componentes fuertemente conectados:\n";
-                for (int i = 0; i < componentes.length; i++) {
-                    mensaje += "Componente " + (i+1) + ": " + java.util.Arrays.toString(componentes[i]) + "\n";
-                }
-                JOptionPane.showMessageDialog(rootPane, mensaje);
-            } else {
-                JOptionPane.showMessageDialog(rootPane, "Primero debe cargar un grafo");
+                JOptionPane.showMessageDialog(rootPane, "Se han coloreado los componentes fuertemente enlazados");
+                    }            
             }
-        }   catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, "Error al colorear componentes: " + e.getMessage());
-        }
-}
-         public void construirGrafoConColores(Grafo x, Graph display, String[][] componentes, String[] colores) {
-        Nodo aux = new Nodo(null);
-        int i = 0;
-        int j = 0;
-            while(i < x.getVertices()){
-            String usuarioActual = x.getLista(i).primero().getDato().toString();
-            display.addNode(usuarioActual);
-            display.getNode(usuarioActual).setAttribute("ui.label", usuarioActual);
             
-            // Buscar en qué componente está este usuario y asignar color
-            String color = "#00FFFF"; // Color por defecto (cyan)
-            for (int compIndex = 0; compIndex < componentes.length; compIndex++) {
-                for (String usuarioComponente : componentes[compIndex]) {
-                    if (usuarioComponente.equals(usuarioActual)) {
-                        color = colores[compIndex];
-                        break;
+            /**
+             * Construye el grafo, asignando un color a cada uno de sus nodos.
+             * @param x - El grafo que se usará
+             * @param display - el grafo de clase Graph utilizado
+             * @param componentes - Un array con los componentes del Grafo
+             * @param colores - array con los colores con los que se va a pintar
+             */
+            public void construirGrafoConColores(Grafo x, Graph display, String[][] componentes, String[] colores) {
+            Nodo aux = new Nodo(null);
+            int i = 0;
+            int j = 0;
+                while(i < x.getVertices()){
+                String usuarioActual = x.getLista(i).primero().getDato().toString();
+                display.addNode(usuarioActual);
+                display.getNode(usuarioActual).setAttribute("ui.label", usuarioActual);           
+                String color = "#00FFFF";
+                for (int compIndex = 0; compIndex < componentes.length; compIndex++) {
+                    for (String usuarioComponente : componentes[compIndex]) {
+                        if (usuarioComponente.equals(usuarioActual)) {
+                            color = colores[compIndex];
+                            break;
+                        }
                     }
-        }
-
-    
-    }
-    display.getNode(usuarioActual).setAttribute("ui.style","fill-color: " + color + "; size: 50px; text-size: 20; text-style: bold;");
-            i++;
-        }
-        
-        // Luego crea las aristas
-        i = 0;
-        j = 0;
-        while(i < x.getVertices()){
-            aux = x.getLista(i).primero();
-            String usuarioOrigen = aux.getDato().toString();
-            aux = aux.getpNext();
-            
-            while(aux != null){
-                String usuarioDestino = aux.getDato().toString();
-                
-                // Crear arista con ID único
-                String edgeId = usuarioOrigen + "_to_" + usuarioDestino + "_" + i + "_" + j;
-                display.addEdge(edgeId, usuarioOrigen, usuarioDestino, true);
-                display.getEdge(edgeId).setAttribute("ui.style", "fill-color: black; arrow-size: 10px;");
-                aux = aux.getpNext();
-                j++;
-            }
-            i++;
-            j = 0;
-        }
-        display.setAttribute("ui.antialias");
-        display.setAttribute("ui.stylesheet", "node { text-alignment: under; }");
-         }
-    public static void main(String args[]) {
-
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
                 }
+                display.getNode(usuarioActual).setAttribute("ui.style","fill-color: " + color + "; size: 50px;");
+                i++;
+                }
+            i = 0;
+            j = 0;
+            while(i < x.getVertices()){
+                aux = x.getLista(i).primero();
+                String usuarioOrigen = aux.getDato().toString();
+                aux = aux.getpNext();
+                while(aux != null){
+                    String usuarioDestino = aux.getDato().toString();
+                    String edgeId = usuarioOrigen + "_to_" + usuarioDestino + "_" + i + "_" + j;
+                    display.addEdge(edgeId, usuarioOrigen, usuarioDestino, true);
+                    aux = aux.getpNext();
+                    j++;
+                }
+                i++;
+                j = 0;
             }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+            display.setAttribute("ui.antialias");
+            }
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Interfaz().setVisible(true));
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> Box1;

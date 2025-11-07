@@ -5,11 +5,12 @@
 package proyectoedd;
 
 /**
- *
- * @author 
+ * Main del programa.
+ * Muestra la interfaz en pantalla.
+ * @author José Viloria, Luis Viloria, Diego Guzmán
  */
 public class ProyectoEDD {
-
+    
     /**
      * @param args the command line arguments
      */
@@ -17,6 +18,5 @@ public class ProyectoEDD {
         Interfaz display = new Interfaz();
         display.setVisible(true);
         System.setProperty("org.graphstream.ui", "swing");
-    }
-    
+    } 
 }

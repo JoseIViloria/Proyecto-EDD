@@ -181,6 +181,12 @@ public class Grafo {
         return -1;
     }
     
+    /**
+     * Hace un recorrido DFS.
+     * @param inicio - el String que corresponde al Dato del Nodo a partir del cual se iniciará el recorrido
+     * @return result - Una lista con los resultados
+     * @deprecated
+     */
     public Lista DFS (String inicio){
         Lista result = new Lista();
         boolean [] visitados = new boolean [this.getVertices()];
@@ -193,35 +199,45 @@ public class Grafo {
         return result;
     }
     
+    /**
+     * Función que realiza un recorrido DFS recursivamente.
+     * @param verticeActual - Entero que indica una posición en la lista de ayacencia.
+     * @param visitados - Array de booleanos para identificar que nodos han sido visitados.
+     * @param resultado - Lista en la que se escribirá información.
+     * @deprecated
+     */
     private void DFSRecursivo(int verticeActual, boolean[] visitados, Lista resultado){
         if (verticeActual < 0 || verticeActual >= this.getVertices()){
             return;
             }
-        
         if (this.getLista(verticeActual) == null){
             return;
         }
-        
         if (this.getLista(verticeActual).primero() == null){
             return;
         }
-        
         visitados[verticeActual] = true;
-        
         Nodo<String> primerNodo = (Nodo<String>) this.getLista(verticeActual).primero();
         String datoActual = primerNodo.getDato();
         resultado.insertar(datoActual);
         Nodo<String> adyacente = (Nodo<String>) this.getLista(verticeActual).primero().getpNext();
         while (adyacente != null){
             String datoAdyacente = adyacente.getDato();
-            int posAdyacente = this.posiciónVertice(datoAdyacente);
-            
+            int posAdyacente = this.posiciónVertice(datoAdyacente);          
             if (posAdyacente != -1 && !visitados[posAdyacente]){
                 DFSRecursivo(posAdyacente, visitados, resultado);
             }
             adyacente = (Nodo<String>) adyacente.getpNext();
         }
     }
+    
+    /**
+     * Función que permite verificar si hay un enlace entre 2 vértices.
+     * @param inicio - String correspondiente al vértice a partir del cual se buscará
+     * @param destino - String correspondiente al vértice que se busca
+     * @return HayenlaceDFSRecursivo
+     * @deprecated 
+     */
     public boolean HayenlaceDFS(String inicio, String destino){
         if (!this.verticeExiste(inicio) || !this.verticeExiste(destino)){
             return false;
@@ -232,12 +248,20 @@ public class Grafo {
         
         return HayenlaceDFSRecursivo(posInicio, posDestino, visitados);
     }
-     private boolean HayenlaceDFSRecursivo(int actual, int destino, boolean[] visitados){
+    
+    /**
+     * Recorre recursivamente entre Nodos, verificando si están enlazados entre sí
+     * @param actual - (Entero) Posición del nodo actual
+     * @param destino - (Entero) Posición del nodo final
+     * @param visitados - Lista de booleanos que permite reconocer que nodos ya han sido visitados.
+     * @return Boolean True, si se encuentra un enlace; False en el caso contrario
+     * @deprecated 
+     */
+    private boolean HayenlaceDFSRecursivo(int actual, int destino, boolean[] visitados){
         if (actual == destino){
             return true;
         }
         visitados[actual] = true;
-        
         Nodo<String> adyacente = (Nodo<String>) this.getLista(actual).primero().getpNext();
         while (adyacente != null){
             String datoAdyacente = adyacente.getDato();
@@ -249,10 +273,14 @@ public class Grafo {
             }
             adyacente = (Nodo<String>) adyacente.getpNext();
         }
-        return false;
-        
- }
-     public String[][]EncontrarComponentesFuertementeConectados(){
+        return false;      
+    }
+    
+    /**
+     * Función que utiliza el algoritmo de Kosaraju para encontrar los componentes fuertemente conectados del Grafo
+     * @return resultado - Un array con los componentes encontrados
+     */
+    public String[][] EncontrarComponentesFuertementeConectados(){
          if(this.getVertices()==0){
              return new String [0][0];
          }
@@ -263,19 +291,15 @@ public class Grafo {
                  primeraDFS(i, visitados,pila);
              }
          }
-         
          Grafo grafoTranspuesto= transponerGrafo();
-         
          visitados= new boolean[this.getVertices()];
          String[][] componentesTemp = new String [this.getVertices()][];
          int numComponentes = 0;
-         
          while (!pila.estaVacia()){
              int vertice = pila.pop();
              if(!visitados[vertice]){
                  Lista componenteLista= new Lista();
                  segundaDFS (grafoTranspuesto,vertice,visitados,componenteLista);
-                 
                  String[]componente = listaToArray(componenteLista);
                  componentesTemp[numComponentes++]=componente;
              }
@@ -285,27 +309,33 @@ public class Grafo {
              resultado[i]=componentesTemp[i];
          }
          return resultado;
-     }
-     
-     private void primeraDFS (int vertice, boolean[]visitados,Pila pila){
+    }
+    
+    /**
+     * Realiza el primer recorrido DFS necesario para Kosaraju
+     * @param vertice  - Int correspondiente al vértice a partir del cual se va a recorrer
+     * @param visitados - Array de booleanos que indica cuáles nodos han sido visitados
+     * @param pila - Una pila que guarda la prioridad que se usará para guardar la "prioridad" del recorrido
+     */
+    private void primeraDFS (int vertice, boolean[]visitados,Pila pila){
          visitados[vertice]=true;
-         
          Nodo adyacente = this.getLista(vertice).primero().getpNext();
          while (adyacente!= null){
              String datoAdyacente = (String) adyacente.getDato();
              int posAdyacente = this.posiciónVertice(datoAdyacente);
              if (posAdyacente != -1 && !visitados[posAdyacente]){
-                 primeraDFS(posAdyacente,visitados,pila);
-                 
+                 primeraDFS(posAdyacente,visitados,pila);       
              }
              adyacente=adyacente.getpNext();
          }
-         
-         pila.push(vertice);
-         
-     }
-     
-     private Grafo transponerGrafo(){
+         pila.push(vertice); 
+    }
+    
+    /**
+     * Transpone el grafo (revierte la dirección de las relaciones)
+     * @return transpuesto - El grafo nuevo con las relaciones invertidas
+     */
+    private Grafo transponerGrafo(){
          Grafo transpuesto = new Grafo(this.getMaxVertices());
          for (int i=0 ; i< this.getVertices();i++){
              String usuario = (String) this.getLista(i).primero().getDato();
@@ -325,14 +355,19 @@ public class Grafo {
              }
          }
          return transpuesto;
-     }
-     private void segundaDFS(Grafo grafo, int vertice, boolean[] visitados, Lista componente) {
+    }
+    
+    /**
+     * Realiza el segundo recorrido DFS necesario para el algoritmo de Kosaraju
+     * @param grafo - El grafo que se va a recorrer
+     * @param vertice - Int correspondiente al vértice a partir del cual se va a recorrer
+     * @param visitados - Array que representa cuales nodos han sido visitados
+     * @param componente - Lista en la que se guardaran los componentes encontrados
+     */
+    private void segundaDFS(Grafo grafo, int vertice, boolean[] visitados, Lista componente) {
         visitados[vertice] = true;
-        
-        
         String usuario = (String) grafo.getLista(vertice).primero().getDato();
         componente.insertar(usuario);
-        // Recorrer vértices adyacentes en grafo transpuesto
         Nodo adyacente = grafo.getLista(vertice).primero().getpNext();
         while (adyacente != null) {
             String datoAdyacente = (String) adyacente.getDato();
@@ -343,14 +378,14 @@ public class Grafo {
             adyacente = adyacente.getpNext();
         }
     }
+    
      /**
-     * Convierte una Lista a array de Strings
+     * Convierte una Lista en un array de Strings
      */
     private String[] listaToArray(Lista lista) {
         if (lista == null || lista.esVacio()) {
             return new String[0];
         }
-
         int count = 0;
         Nodo actual = lista.primero();
         while (actual != null) {
@@ -363,25 +398,26 @@ public class Grafo {
             array[i] = (String) actual.getDato();
             actual = actual.getpNext();
         }
-        
         return array;
     }
+    
+    /**
+     * Consigue los colores para cada uno de los componentes del Grafo
+     * @param numComponentes - número de componentes presentes en el Grafo
+     * @return coloresAsignados - un array que contiene los colores de cada componente
+     */
     public String[] obtenerColoresComponentes(int numComponentes) {
         String[] colores = {"#FF0000", "#00FF00", "#0000FF", "#FFFF00", "#FF00FF", "#00FFFF", 
                             "#FFA500", "#800080", "#008000", "#800000"};
         String[] coloresAsignados = new String[numComponentes];
-        
         for (int i = 0; i < numComponentes && i < colores.length; i++) {
             coloresAsignados[i] = colores[i];
         }
         for (int i = colores.length; i < numComponentes; i++) {
             coloresAsignados[i] = colores[i % colores.length];
         }
-        
         return coloresAsignados;
-    }
-
-        
+    }     
 }
        
         

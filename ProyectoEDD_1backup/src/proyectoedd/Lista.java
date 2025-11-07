@@ -34,9 +34,6 @@ public class Lista<T> {
      * Regresa el atributo pFirst de la Lista.
      * @return pFirst - primer Nodo de la Lista.
      */
-    public Nodo getPrimero(){
-        return this.pFirst;
-    }
     public Nodo primero(){
         return this.pFirst;
     }
@@ -46,10 +43,8 @@ public class Lista<T> {
      * @return Ultimo Nodo de la lista
      */
     public Nodo last(){
-        if (this.esVacio()){
-            return null;
-        }
-        Nodo x = this.primero();
+        Nodo x = new Nodo(null);
+        x = this.primero();
         while(x.getpNext()!=null){
             x = x.getpNext();
         }
@@ -82,9 +77,6 @@ public class Lista<T> {
      * @param x - el atributo "dato" del nodo que se quiere eliminar.
      */
     public void eliminarElemento(T x){
-        if (this.esVacio()){
-            return;
-        }
         Nodo aux = this.primero();
         if(aux.getDato().equals(x)){
             this.setPfirst(aux.getpNext());
@@ -92,11 +84,9 @@ public class Lista<T> {
             while(!aux.getpNext().getDato().equals(x)){
                 aux= aux.getpNext();
             }
-            if (aux.getpNext()!= null){
             aux.setpNext(aux.getpNext().getpNext());
         }
     }
-   }
     
     /**
      * Busca un Nodo en la lista; regresa la dirección del Nodo
@@ -105,23 +95,9 @@ public class Lista<T> {
      */
     public Nodo buscar(T x){
         Nodo aux = this.primero();
-        while(aux!= null){
-            if(aux.getDato().equals(x)){
-                return aux;
-            }
-            
+        while((!aux.getDato().equals(x))|| aux!=null){
             aux = aux.getpNext();
         }
-        return null;
-    }
-    
-    public void insertarAlinicio(T x){
-        Nodo nuevo = new Nodo (x);
-        if(this.esVacio()){
-            this.setPfirst(nuevo);
-        }else{
-            nuevo.setpNext(this.getPrimero());
-            this.setPfirst(nuevo);
-        }
+        return aux;
     }
 }

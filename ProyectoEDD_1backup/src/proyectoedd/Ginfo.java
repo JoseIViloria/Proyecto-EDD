@@ -18,7 +18,7 @@ public class Ginfo {
      * Constructor de la clase Ginfo.
      */
     public Ginfo() {
-        this.usuarios = new String[0];
-        this.relaciones = new String [0][2];
+        this.usuarios = usuarios;
+        this.relaciones = relaciones;
     }
 }
